@@ -1,5 +1,5 @@
 title: Build for Impact
 description: Data Engineering, Advanced Analytics & AI Ideas and Patterns That Come from Practice, Not Prompts
 author: Jean Hayes
-url: "https://jehayesms.github.io"
-baseurl: "/jean-hayes-ai-analytics"
+url: https://jehayesms.github.io
+baseurl: /jean-hayes-ai-analytics
