@@ -6,6 +6,7 @@ date: 2025-07-22
 categories: [ai, analytics]
 image: /assets/images/MountJosephine.png
 ---
+
 # Build for Impact
 
 ## Data Engineering, Advanced Analytics & AI: Ideas and Patterns That Come from Practice, Not Prompts
