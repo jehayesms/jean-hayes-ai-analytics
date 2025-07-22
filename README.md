@@ -1,20 +1,13 @@
-# Congratulations! :tada:
+# Build for Impact
+ Data Engineering, Advanced Analytics & AI: Ideas and Patterns That Come from Practice, Not Prompts
+![mount-josephine](images/MountJosephine.png)
 
-<img src="https://octodex.github.com/images/welcometocat.png" align="right" height="250px" />
+My name is Jean Hayes and I am a seasoned technology leader and data architect based in St. Paul, Minnesota. I love to build out content around Azure AI, Analytics, Data Engineering, and Microsoft Fabric. My goal is to share ideas, patterns, and features that you can actually use and implement in your own environment —things that come up in real-world conversations with customers. I won’t just repeat what’s already in Microsoft Docs or what you can learn from ChatGPT or CoPilot.
 
-Yay **jehayesms** you finished the exercise! Nice work :tada:
+I specialize in helping customers leverage the power of Azure AI and Analytics to drive business transformation. My expertise spans across data engineering, data warehousing, advanced analytics, and AI with a particular emphasis on Microsoft Fabric and its capabilities in the Azure ecosystem.
 
-If you would like to retrace your steps, you can always revisit the exercise.
+Before joining Microsoft in 2019, I worked both independently and with other companies—supporting clients across industries as they modernized their data platforms and adopted cloud technologies. That hands-on experience in business intelligence and data strategy helped shape my approach to scalable, customer-focused solutions.
 
-[![](https://img.shields.io/badge/Return%20to%20Exercise-%E2%86%92-1f883d?style=for-the-badge&logo=github&labelColor=197935)](https://github.com/jehayesms/jean-hayes-ai-analytics/issues/1)
+I hold multiple Microsoft certifications, including Fabric Analytics Engineer Associate and Azure AI Engineer Associate. My technical toolkit includes Azure Synapse, Data Factory, SQL, Spark, Python, and a wide array of AI services such as Azure OpenAI, Azure AI Foundry services such as Document Intelligence and Azure AI Content Understanding, AI Agents, and Semantic Kernel.
 
-> [!TIP]
-> Mona won't grade you this time! 😉
-
-
-### Craving more? :raising_hand:
-
-Did you enjoy this practical style of learning? There's no better way to learn than building things, right?!
-
-Let's keep the momentum going! Head over to [GitHub Skills](https://skills.github.com) catalog to find another hands-on exercise. :rocket:
-
+Outside of work, I enjoy skiing, hiking, snorkeling in the USVI, playing pickleball, doing puzzles, hanging with my dog, husband, friends and family, and recently, rediscovering my love of vinyl. One quote that resonates with me is: “The more you know, the more you know you don’t know.” It reflects my lifelong curiosity and commitment to learning, whether it’s mastering skate skiing, getting my butt kicked in pickleball or exploring the latest in AI and cloud technologies.

@@ -1,0 +1,11 @@
+<div class="about-box">
+  <h3>About Me</h3>
+  <p>I’m a new blogger exploring Jekyll and GitHub Pages. Join me!</p>
+</div>
+
+<div class="latest-post-box">
+  <h3>Latest Post</h3>
+  {% assign latest = site.posts.first %}
+  <p><strong>{{ latest.title }}</strong></p>
+  <p>{{ latest.excerpt | strip_html | truncatewords: 20 }}</p>
+</div>
