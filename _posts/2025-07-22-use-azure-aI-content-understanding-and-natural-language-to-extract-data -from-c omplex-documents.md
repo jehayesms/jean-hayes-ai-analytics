@@ -2,19 +2,17 @@
 layout: default
 title: "Use Azure AI Content Understanding and Natural Language to Extract Data from Complex documents"
 date: 2025-07-22
-categories: [Personal]
+categories: [Azure AI]
 image: /assets/images/MountJosephine.png
 ---
 
-# Use Azure AI Content Understanding and Natural Language to Extract Data from Complex Documents
-
-Extracting key field information from documents is a mundane task in pretty much every organization – check processing, invoice processing, purchase orders, etc. Azure AI Document Intelligence is the tool that often comes to mind for automation of document processing with both prebuilt and custom templates. However, when documents are very complex, without fixed fields and values, Document Intelligence may not produce the expected results.
+Extracting key field information from documents is a mundane task in pretty much every organization, such as check processing, invoice processing, purchase orders, etc. Azure AI Document Intelligence is the tool that often comes to mind for automation of document processing with both prebuilt and custom templates. However, when documents are very complex, without fixed fields and values, Document Intelligence may not produce the expected results.
 
 Let’s take a real-world example: the PDF of a community education course catalog, like this one: *Spring/Summer 2025 Adult and Youth Classes*. I want to extract all the course information from the catalog: the course name, the description, the category, the instructor name, the start date and time, the end date, the location and cost and eventually load it into a database or lakehouse to query. If you open the course catalog, you will notice there is a cover page, a calendar, a table of contents, and other information I do not want to extract.
 
 As you look through the course information, you will notice that the course listings don’t completely follow the same format. A course may have multiple sections of it, with different dates and times:
 
-![Course Section Example](/assets/images/1-catalog.png)
+![Course Section Example]({{ "/assets/images/1-catalog.png" | relative_url }})
 
 I will want to repeat the course name, description and instructor for each course section.
 
@@ -149,6 +147,7 @@ Give your analyzer a name and description. Once the status is **Ready**, test it
 ![Analyzer Versions](/assets/images/14-contentunderstanding.png)
 
 At the bottom of the screen, you’ll see:
+
 - Sample **Python code**
 - Links to use the REST API
 
@@ -160,7 +159,7 @@ You can also get the **subscription key** and **model endpoint** from the **Mode
 
 ![End Points](/assets/images/16-contentunderstanding.png)
 
-I created then created a Python notebook to call the endpoint and display the results: 
+I created then created a Python notebook to call the endpoint and display the results:
 
 ![DataFrame Output](/assets/images/12-contentunderstanding.png)
 
