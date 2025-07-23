@@ -1,0 +1,78 @@
+{
+	"fieldSchema": {
+		"fields": {
+			"summerCourseCatalog": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"courseName": {
+							"type": "string",
+							"method": "generate",
+							"description": "This is the course name, located above the course description"
+						},
+						"courseDescription": {
+							"type": "string",
+							"method": "generate",
+							"description": "This is the description of the course. It will be at least 10 words long and somewhere located above the above the course section number and below the course name."
+						},
+						"courseSectionNumber": {
+							"type": "string",
+							"method": "generate",
+							"description": "This is the course section number, which is 4 digits followed by 2 or 3 letters."
+						},
+						"courseInstructor": {
+							"type": "string",
+							"method": "generate",
+							"description": "This is the name of the instructor. Usually it is 1 or 2 initials followed by a last name, but sometimes it is a few words. It may be below the course section number or beneath the course description. In that case, use that instructor name for all descriptions"
+						},
+						"courseStartDate": {
+							"type": "date",
+							"method": "generate",
+							"description": "The weekday, month and day of the course. The year is assumed as 2025. "
+						},
+						"courseTime": {
+							"type": "string",
+							"method": "generate",
+							"description": "The start and end time of the course"
+						},
+						"numberOfSessions": {
+							"type": "number",
+							"method": "generate",
+							"description": "The number of sessions for the course"
+						},
+						"courseLocation": {
+							"type": "string",
+							"method": "generate",
+							"description": "Course Location - this could be a street address or the name of a building"
+						},
+						"courseCost": {
+							"type": "number",
+							"method": "generate",
+							"description": "The cost of the course in USD"
+						},
+						"courseEndDate": {
+							"type": "string",
+							"method": "generate",
+							"description": "Compute the courseEndDate by taking the courseStartDate and adding the number of weeks to get the courseEndDate. For example, if the courseStartDate is August 1 and the number of sessions is 1, the courseEndDate would be August 1; if the number of sessions is 2, the course end date would be August 8; if the number of sessions is 3, the course end date would be August 15. "
+						},
+						"courseCategory": {
+							"type": "string",
+							"method": "generate",
+							"description": "Above the course listings, there will be a header. It will never be the same as the courseName. This is the courseCategory. If you can't find the Category, specify \"Unknown\""
+						},
+						"courseSectionName": {
+							"type": "string",
+							"method": "generate",
+							"description": "Below the course description, and below the course instructor exists, and above the course section numbers, there may be a course section name. It will be 1 to 5 words. Include it is this if you find it otherwise leave this field as blank. 2 examples are Largo and Sweet Dreams under Alexander Oil Painting course name."
+						}
+					},
+					"method": "extract"
+				},
+				"method": "generate",
+				"description": "Extract course information from this catalog. The key is the course section number, which is 4 digits followed by 2 or 3 letters. Create a row for each course section number. The course name and description is above the  course section information. There may be multiple sections for a course so populate the course name and description in each row. To help you link the course name and description to the course section, the first 4 digits of the course is the same for each course name and description.  Each course section always has a location, date, time, number of sessions and price. The course may also have a section name, which would be immediately above the course section number. Usually it is 1 or 2 initials followed by a last name, but sometimes it is a few words. It may be below the course section number or beneath the course description. In that case, use that instructor name for all descriptions. Ignore any other general information community education and table "
+			}
+		},
+		"definitions": {}
+	}
+}
