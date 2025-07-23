@@ -18,7 +18,7 @@ I will want to repeat the course name, description and instructor for each cours
 
 And sometimes there are multiple instructors for different course sections and note there is no end date, just the number of sessions:
 
-![Instructors and Sessions](/assets/images/2-catalog.png)
+![Instructors and Sessions]({{ "/assets/images/2-catalog.png" | relative_url }})
 
 To automate, data extraction by labeling would be difficult. You could try defining a table but Document Intelligence expects consistent columns and rows. You would need to label a lot of documents and the model would struggle with inconsistent layouts or nested data.
 
@@ -40,22 +40,22 @@ To start with Azure AI Content Understanding, you need an **Azure AI Foundry Hub
 
 Within your Azure Subscription, go to **Azure AI Foundry**:
 
-![Create Project](/assets/images/3-foundry.png)
+![Create Project]({{ "/assets/images/3-foundry.png" | relative_url }})
 
 Create an Azure AI Foundry hub-based project in one of the supported regions:
 
-![Create Project](/assets/images/4-foundry.png)
+![Create Project]({{ "/assets/images/4-foundry.png" | relative_url }})
 
 You will be directed to specify a **Project Name** and a **Hub Name**, then click **Create**.
 
 In Azure AI Hub, click:
 - `Content Understanding` > `Custom Task` > `Create`
 
-![Start Task](/assets/images/5-countentunderstanding.png)
+![Start Task]({{ "/assets/images/5-countentunderstanding.png" | relative_url }})
 
 On the next screen, choose **Multi-file processing** for its advanced reasoning skills:
 
-![Multi-file Option](/assets/images/6-contentunderstanding.png)
+![Multi-file Option]({{ "/assets/images/6-contentunderstanding.png" | relative_url }})
 
 ---
 
@@ -68,14 +68,14 @@ Next, define a schema where you can enter:
 
 The **field description** is what makes this tool powerful. You can define exactly what and how to extract data.
 
-![Schema Editor](/assets/images/7-contentunderstanding.png)
+![Schema Editor]({{ "/assets/images/7-contentunderstanding.png" | relative_url }})
 
 Data types can be:
 - Tables
 - Lists
 - Scalar values
 
-![Data types](/assets/images/8-contentunderstanding.png)
+![Data types]({{ "/assets/images/8-contentunderstanding.png" | relative_url }})
 
 ---
 
@@ -83,13 +83,13 @@ Data types can be:
 
 For my course extraction example, I defined a **table** and gave it very detailed information on what to extract as well as what to ignore. I also noted that the actual unique key is the **course section**, since a course may have more than one section. I provided detailed information on how to repeat the course name and description for each section.
 
-![Schema Example](/assets/images/9-contentunderstanding.png)
+![Schema Example]({{ "/assets/images/9-contentunderstanding.png" | relative_url }})
 
 > “Extract course information from this catalog. The key is the course section number, which is 4 digits followed by 2 or 3 letters. Create a row for each course section number. The course name and description is above the course section information. There may be multiple sections for a course so populate the course name and description in each row. To help you link the course name and description to the course section, the first 4 digits of the course is the same for each course name and description. Each course section always has a location, date, time, number of sessions and price. The course may also have a section name, which would be immediately above the course section number. Ignore any other general information community education and table.”
 
 I then created subfields in the table, and for each subfield, I provided descriptions:
 
-![Subfields Example](/assets/images/10-contentunderstanding.png)
+![Subfields Example]({{ "/assets/images/10-contentunderstanding.png" | relative_url }})
 
 ---
 
@@ -122,19 +122,19 @@ Next, upload at least 1 file. if you are doing this in your own environment, you
 
 Click **Run Analysis** to build a **Test Analyzer**.
 
-![Run Analysis](/assets/images/11-contentunderstanding.png)
+![Run Analysis]({{ "/assets/images/11-contentunderstanding.png" | relative_url }})
 
 After running, check the **Prediction** tab — 70 rows were returned in my example. You can view the results in:
 - **List View** (down arrow icon)
 - **Table View** (grid icon)
 
-![Prediction Results](/assets/images/12-contentunderstanding.png)
+![Prediction Results]({{ "/assets/images/12-contentunderstanding.png" | relative_url }})
 
 Review the results. If needed, adjust the schema or field descriptions and **re-run** the analyzer.
 
 When satisfied, click **Build Analyzer** to create an endpoint and subscription key for your application.
 
-![Build Analyzer](/assets/images/13-contentunderstanding.png)
+![Build Analyzer]({{ "/assets/images/13-contentunderstanding.png" | relative_url }})
 
 ---
 
@@ -144,7 +144,7 @@ Give your analyzer a name and description. Once the status is **Ready**, test it
 
 > I created two analyzers — one as a baseline, and the second with updates to schema and descriptions.
 
-![Analyzer Versions](/assets/images/14-contentunderstanding.png)
+![Analyzer Versions]({{ "/assets/images/14-contentunderstanding.png" | relative_url }})
 
 At the bottom of the screen, you’ll see:
 
@@ -153,15 +153,15 @@ At the bottom of the screen, you’ll see:
 
 The sample code also includes the **resource key** — save this in **Azure Key Vault** for authentication.
 
-![Sample Code](/assets/images/15-contentunderstanding.png)
+![Sample Code]({{ "/assets/images/15-contentunderstanding.png" | relative_url }})
 
 You can also get the **subscription key** and **model endpoint** from the **Model and Endpoints** section in Azure AI Foundry.
 
-![End Points](/assets/images/16-contentunderstanding.png)
+![End Points]({{ "/assets/images/16-contentunderstanding.png" | relative_url }})
 
 I created then created a Python notebook to call the endpoint and display the results:
 
-![DataFrame Output](/assets/images/12-contentunderstanding.png)
+![DataFrame Output]({{ "/assets/images/12-contentunderstanding.png" | relative_url }})
 
 In the next blog, I will show how to use the **Azure AI Content Understanding** endpoint to extract data from complex documents and store contents in a database or lakehouse.
 
