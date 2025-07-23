@@ -1,6 +1,6 @@
 .container {
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 2fr 1.2fr;
   gap: 20px;
   padding: 20px;
   font-family: sans-serif;
@@ -9,6 +9,13 @@
   background: #ffffff;
   padding: 15px;
   border-radius: 8px;
+}
+.right-sidebar li {
+  word-wrap: break-word;
+  line-height: 1.4;
+}
+.right-sidebar li a {
+  font-size: 0.95em;
 }
 .content {
   background: #fff;
