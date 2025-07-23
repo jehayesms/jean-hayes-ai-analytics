@@ -1,10 +1,12 @@
 <p><a href="{{ '/' | relative_url }}">🏠 Build for Impact</a></p>
 <h3>Articles</h3>
-<ul>
-  {% for category in site.categories %}
+<<ul>
+  {% assign sorted_categories = site.categories | sort %}
+  {% for category in sorted_categories %}
     <li><strong>{{ category[0] }}</strong>
       <ul>
-        {% for post in category[1] %}
+        {% assign sorted_posts = category[1] | sort: "date" | reverse %}
+        {% for post in sorted_posts %}
           <li>
             <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
             ({{ post.date | date: "%b %d, %Y" }})

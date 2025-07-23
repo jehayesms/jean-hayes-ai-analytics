@@ -8,7 +8,7 @@ image: /assets/images/MountJosephine.png
 
 Extracting key field information from documents is a mundane task in pretty much every organization, such as check processing, invoice processing, purchase orders, etc. Azure AI Document Intelligence is the tool that often comes to mind for automation of document processing with both prebuilt and custom templates. However, when documents are very complex, without fixed fields and values, Document Intelligence may not produce the expected results.
 
-Let’s take a real-world example: the PDF of a community education course catalog, like this one: *Spring/Summer 2025 Adult and Youth Classes*.  Whenu open the course catalog, you will notice there is a cover page, a calendar, a table of contents, and other information I do not want to extract. All I want to extract all the course information from the catalog:
+Let’s take a real-world example: the PDF of a community education course catalog, like this one: [Spring/Summer 2025 Adult and Youth Classes]({{"/assets/files/summer-catalog-10-pages.pdf" | relative_url }}).  When open the course catalog, you will notice there is a cover page, a calendar, a table of contents, and other information I do not want to extract. I only want to extract the course information from the catalog:
 
 - Course name
 - Course description
@@ -19,6 +19,7 @@ Let’s take a real-world example: the PDF of a community education course catal
 - End date
 - Location
 - Cost
+  
 ... and load it into a database or lakehouse for my application to use.
 
 As you look through the course information, you will notice that the course listings don’t completely follow the same format. A course may have multiple sections of it, with different dates and times:
@@ -29,9 +30,9 @@ And sometimes there are multiple instructors for different course sections and n
 
 ![Instructors and Sessions]({{ "/assets/images/2-catalog.png" | relative_url }})
 
-For my database or lakehouse table, I  want to have a row by each course section number. With the course name and description at the the course level, I need to populate those in each row for each course section. I  also need to get the instructor name either from the course level or from the course section level, depending on where it is located in the document. There is no course end date, but I could calculate it based on the course start date and the number of sessions.
+For my database or lakehouse table, I want a row by each course section number. With the course name and description being at the the course level, I somehow need to populate those fields for each row as well. I also need to get the instructor name either from the course level or from the course section level, depending on where it is located in the document. There is no course end date, but I'd like to have it calculated based on the course start date and the number of sessions.
 
-To automate, data extraction by labeling would be difficult. You could try defining a table but Document Intelligence expects consistent columns and rows. You would have to label a lot of documents and the model would struggle with inconsistent layouts or nested data.
+To automate, data extraction by just labeling would be difficult. You could try defining a table layout in Document Intelligence, but it expects consistent columns and rows. You would have to label a lot of documents and the model would struggle with inconsistent layouts or nested data.
 
 However, **Azure AI Content Understanding** is designed to handle exactly these kinds of challenges. Instead of relying on labeled training data and rigid templates, it allows you to describe what you want to extract using natural language.
 
@@ -64,7 +65,7 @@ In Azure AI Hub, click:
 
 - Content Understanding > Custom Task > Create
 
-![Start Task]({{ "/assets/images/5-countentunderstanding.png" | relative_url }})
+![Start Task]({{ "/assets/images/5-contentunderstanding.png" | relative_url }})
 
 On the next screen, choose **Multi-file processing** for its advanced reasoning skills:
 
@@ -90,11 +91,7 @@ Data types can be:
 
 ![Data types]({{ "/assets/images/8-contentunderstanding.png" | relative_url }})
 
----
-
-## The Course Catalog Example Table Schema
-
-For my course extraction example, I chose a table field type and gave it very detailed information on what to extract as well as what to ignore. In my prompt, I specified that the actual unique key is the **course section**, since a course may have more than one section. I provided detailed information on how to repeat the course name and description for each section.
+For my course extraction example, I chose a table field type and gave it very detailed information on what to extract as well as what to ignore. In my prompt, I specified that the actual unique key is the **course section number**, since a course may have more than one section. I provided detailed information on how to repeat the course name and description for each section.
 
 ![Schema Example]({{ "/assets/images/9-contentunderstanding.png" | relative_url }})
 
@@ -110,24 +107,22 @@ When defining the subfields, I used natural language to describe how to extract 
 
 - **courseEndDate**: *Compute the courseEndDate by taking the courseStartDate and adding the number of weeks to get the courseEndDate. For example, if the courseStartDate is August 1 and the number of sessions is 1, the courseEndDate would be August 1; if the number of sessions is 2, the course end date would be August 8; if the number of sessions is 3, the course end date would be August 15.*
 
-- **courseCategory**: *Above the course listings, there will be a header. It will never be the same as the courseName. This is the courseCategory. If you can't find the Category, specify `"Unknown"`.*
+- **courseCategory**: *Above the course listings, there will be a header. It will never be the same as the courseName. This is the courseCategory. If you can't find the Category, specify "Unknown".*
 
-- **courseSectionName**: *Below the course description, and below the course instructor exists, and above the course section numbers, there may be a course section name. It will be 1 to 5 words. Include it is this if you find it otherwise leave this field as blank. 2 examples are Largo and Sweet Dreams under Alexander Oil Painting course name.*
+- **courseSectionName**: *Below the course description, and below the course instructor if it exists, and above the course section numbers, there may be a course section name. It will be 1 to 5 words. Include it is this if you find it otherwise leave this field as blank. 2 examples are Largo and Sweet Dreams under Alexander Oil Painting course name.*
 
-You can view or download the full schema here: ({{ "/assets/files/_communityEdCourseCatalog_prebuilt-documentAnalyzer_2025-05-01-preview.json" | relative_url }})
+You can view or download the full schema here: [Download Schema]({{ "/assets/files/_communityEdCourseCatalog_prebuilt-documentAnalyzer_2025-05-01-preview.json" | relative_url }})
 
 And if you wish, you can import the file into your own Content Understanding project.
 
-![ImportJson]({{ "/assets/images/10a-contentunderstanding.png" | relative_url }})
+![ImportJson]({{ "/assets/images/11a-contentunderstanding.png" | relative_url }})
 
----
+## Test Analyzer
 
-## Run the Analyzer
-
-Next, upload at least 1 file. if you are doing this in your own environment, you can use one of these example files:
+Next, upload at least 1 file. if you are following my example in your own environment, you can use one of these example files:
 
 - [Spring/Summer 2025 Community Ed Catalog - 6 pages(PDF)]({{ "/assets/files/summer-catalog-06-pages.pdf" | relative_url }})
-- [Spring/Summer 2025 Community Ed Catalog - 10 pages(PDF)]({{ "/assets/files/summer-catalog-10-pageg.pdf" | relative_url }})
+- [Spring/Summer 2025 Community Ed Catalog - 10 pages(PDF)]({{ "/assets/files/summer-catalog-10-pages.pdf" | relative_url }})
 
 Click **Run Analysis** to build a **Test Analyzer**.
 
@@ -164,10 +159,10 @@ You can also get the **subscription key** and **model endpoint** from the **Mode
 
 ![End Points]({{ "/assets/images/16-contentunderstanding.png" | relative_url }})
 
-Below is an example output to a dataframe:
+Below is example output to a dataframe:
 ![DataFrame Output]({{ "/assets/images/17-df.png" | relative_url }})
 
-In the next blog, I will show how to use the Azure AI Content Understanding endpoint to extract data from complex documents and store contents in a database or lakehouse.
+In the next blog, I will show how to call the Azure AI Content Understanding endpoint and store the results in a database or lakehouse.
 
 ---
 
@@ -176,6 +171,7 @@ With Azure AI's Content Understanding, field extraction becomes a game-changer �
 You can harness the power of **Natural Language Processing (NLP)** to intelligently extract names, dates, totals, and even calculated fields with minimal setup — regardless of document structure.
 
 It’s:
+
 - Smarter ✅
 - Faster ✅
 - More scalable ✅
@@ -183,4 +179,3 @@ It’s:
 ...and it can save **hours or even days** of manual work!
 
 Whether you're working with menus, handwritten forms, catalogs, brochures, or any other semi-structured content — **Azure AI Content Understanding** helps you unlock the data inside.
-
