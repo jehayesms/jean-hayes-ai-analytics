@@ -7,4 +7,4 @@ categories: [ai, analytics]
 image: /assets/images/MountJosephine.png
 ---
 
-I'm Jean Hayes and I love to build out content around Azure AI, Analytics, Data Engineering, and Microsoft Fabric. My goal is to share ideas, patterns, and features that you can actually use and implement in your own environment —things that come up in real-world conversations with customers. I won’t just repeat what’s already in Microsoft Docs or what you can learn from ChatGPT or CoPilot.
+My name is Jean Hayes and I love to build out content around Azure AI, Analytics, Data Engineering, and Microsoft Fabric. My goal is to share ideas, patterns, and features that you can actually use and implement in your own environment — things that come up in real-world conversations with customers. I won’t just repeat what’s already in Microsoft Docs or what you can learn from ChatGPT or CoPilot. As David Byrne would say, "Say something once, why say it again?"
