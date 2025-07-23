@@ -115,16 +115,17 @@ And if you wish, you can import the file into your own Content Understanding pro
 
 ## Run the Analyzer
 
-Next, upload at least 1 file. if you are doing this in your own environment, you can use one of these example files: 
+Next, upload at least 1 file. if you are doing this in your own environment, you can use one of these example files:
 
-- [Spring/Summer 2025 Adult and Youth Classes - 6 pages(PDF)](/assets/files/summer-catalog-06-pages.pdf)
-- [Winter 2025 Community Ed Catalog - 10 pages(PDF)](/assets/files/summer-catalog-10-pageg.pdf)
+- [Spring/Summer 2025 Adult and Youth Classes - 6 pages(PDF)]({{ "/assets/files/summer-catalog-06-pages.pdf" | relative_url }})
+- [Winter 2025 Community Ed Catalog - 10 pages(PDF)]({{ "/assets/files/summer-catalog-10-pageg.pdf" | relative_url }})
 
 Click **Run Analysis** to build a **Test Analyzer**.
 
 ![Run Analysis]({{ "/assets/images/11-contentunderstanding.png" | relative_url }})
 
 After running, check the **Prediction** tab — 70 rows were returned in my example. You can view the results in:
+
 - **List View** (down arrow icon)
 - **Table View** (grid icon)
 
