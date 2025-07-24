@@ -31,6 +31,7 @@ h1 {
   border-radius: 8px;
   word-break: break-word;
   max-width: 800px;
+  margin: 0 auto;
 }
 .content h1,
 .content h2 {
@@ -41,12 +42,12 @@ h1 {
 
 .blog-image {
   display: block;
-  max-width: 100%;
-  max-height: 300px; /* or whatever height works visually */
+  margin: 20px auto;             /* centers the image */
+  width: 100%;
+  max-width: 700px;              /* consistent standard width */
   height: auto;
-  width: auto;
+  max-height: 300px;             /* controls very tall images */
   object-fit: cover;
-  margin: 20px 0;
 }
 .category-group {
   margin-bottom: 1em;
