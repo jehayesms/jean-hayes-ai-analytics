@@ -3,7 +3,7 @@ layout: default
 title: "Use Azure AI Content Understanding and Natural Language to Extract Data from Complex documents"
 date: 2025-07-22
 categories: [Azure AI]
-image: /assets/images/MountJosephine.png
+image: /assets/images/archdiagram.png
 ---
 
 Extracting key field information from documents is a mundane task in pretty much every organization, such as check processing, invoice processing, purchase orders, etc. Azure AI Document Intelligence is the tool that often comes to mind for automation of document processing with both prebuilt and custom templates. However, when documents are very complex, without fixed fields and values, Document Intelligence may not produce the expected results.
