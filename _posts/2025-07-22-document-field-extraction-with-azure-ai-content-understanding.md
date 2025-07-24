@@ -1,6 +1,7 @@
 ---
 layout: default
-title: "Use Azure AI Content Understanding and Natural Language to Extract Data from Complex documents"
+title: "Document Field Extraction with Azure AI Content Understanding"
+description: "Use Natural Language to Extract Data from Complex Documents"
 date: 2025-07-22
 categories: [Azure AI]
 image: /assets/images/archdiagram.png
@@ -36,7 +37,7 @@ To automate, data extraction by just labeling would be difficult. You could try 
 
 However, **Azure AI Content Understanding** is designed to handle exactly these kinds of challenges. Instead of relying on labeled training data and rigid templates, it allows you to describe what you want to extract using natural language.
 
-You can define the fields you're interested in—like **courseName**, **courseLocation**, **courseStartDate** and **courseEndDate**—and then use the field description to provide instructions (or prompts) to describe what defines the value for that field.
+With the Document Field Extraction capabilities of Content Understanding, you can define the fields you're interested in—like **courseName**, **courseLocation**, **courseStartDate** and **courseEndDate**—and then use the field description to provide instructions (or prompts) to describe what defines the value for that field.
 
 ## This means
 
