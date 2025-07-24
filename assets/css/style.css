@@ -5,6 +5,12 @@
   padding: 20px;
   font-family: sans-serif;
 }
+h1 {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  font-size: 1.6em;
+  line-height: 1.3;
+}
 .right-sidebar {
   background: #ffffff;
   padding: 15px;
