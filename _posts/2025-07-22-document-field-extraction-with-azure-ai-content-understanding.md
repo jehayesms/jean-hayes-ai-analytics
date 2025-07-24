@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Document Field Extraction with Azure AI Content Understanding"
-description: "Use Natural Language to Extract Data from Complex Documents"
+subtitle: "Use Natural Language to Extract Data from Complex Documents"
 date: 2025-07-22
 categories: [Azure AI]
 image: /assets/images/archdiagram.png
