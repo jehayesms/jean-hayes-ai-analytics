@@ -5,7 +5,7 @@
   padding: 20px;
   font-family: sans-serif;
 }
-.h1 {
+h1 {
   word-break: break-word;
   overflow-wrap: break-word;
   font-size: 1.6em;
@@ -29,6 +29,8 @@
   background: #fff;
   padding: 20px;
   border-radius: 8px;
+  max-width: 100%;
+  word-break: break-word;
 }
 .blog-image {
   display: block;
@@ -64,5 +66,8 @@
   list-style: none;
   margin: 0;
   display: none; /* collapsed by default */
+}
+body {
+  overflow-x: hidden;
 }
 
