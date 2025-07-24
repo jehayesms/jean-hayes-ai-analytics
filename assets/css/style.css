@@ -29,9 +29,16 @@ h1 {
   background: #fff;
   padding: 20px;
   border-radius: 8px;
-  max-width: 100%;
   word-break: break-word;
+  max-width: 800px;
 }
+.content h1,
+.content h2 {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal !important;
+}
+
 .blog-image {
   display: block;
   max-width: 100%;
@@ -66,8 +73,5 @@ h1 {
   list-style: none;
   margin: 0;
   display: none; /* collapsed by default */
-}
-body {
-  overflow-x: hidden;
 }
 
