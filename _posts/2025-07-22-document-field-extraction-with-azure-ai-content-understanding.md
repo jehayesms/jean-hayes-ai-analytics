@@ -86,6 +86,7 @@ The **field description** is what makes this tool powerful. You can define exact
 ![Schema Editor]({{ "/assets/images/7-contentunderstanding.png" | relative_url }})
 
 Data types can be:
+
 - Tables
 - Lists
 - Scalar values
