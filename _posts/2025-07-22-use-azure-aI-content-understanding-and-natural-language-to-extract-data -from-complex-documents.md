@@ -111,7 +111,7 @@ When defining the subfields, I used natural language to describe how to extract 
 
 - **courseSectionName**: *Below the course description, and below the course instructor if it exists, and above the course section numbers, there may be a course section name. It will be 1 to 5 words. Include it is this if you find it otherwise leave this field as blank. 2 examples are Largo and Sweet Dreams under Alexander Oil Painting course name.*
 
-You can view or download the full schema here: [Download Schema]({{ "/assets/files/_communityEdCourseCatalog_prebuilt-documentAnalyzer_2025-05-01-preview.json" | relative_url }})
+You can view or download the full schema here: [Download Schema]({{ "/assets/files/assets/files/analyzerFieldSchema.json" | relative_url }})
 
 And if you wish, you can import the file into your own Content Understanding project.
 

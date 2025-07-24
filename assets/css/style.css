@@ -15,7 +15,7 @@
   line-height: 1.4;
 }
 .right-sidebar li a {
-  font-size: 0.95em;
+  font-size: 0.80em;
 }
 .content {
   background: #fff;
@@ -30,3 +30,30 @@
   object-fit: cover;
   margin: 20px 0;
 }
+.category-group {
+  margin-bottom: 1em;
+}
+
+.category-toggle {
+  background: none;
+  border: none;
+  font-weight: bold;
+  font-size: 1em;
+  cursor: pointer;
+  color: #007acc;
+  text-align: left;
+  padding: 0;
+  margin-bottom: 0.3em;
+}
+
+.category-toggle:hover {
+  text-decoration: underline;
+}
+
+.category-posts {
+  padding-left: 1em;
+  list-style: none;
+  margin: 0;
+  display: none; /* collapsed by default */
+}
+

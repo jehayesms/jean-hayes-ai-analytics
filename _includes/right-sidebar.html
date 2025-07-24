@@ -1,6 +1,8 @@
-<p><a>href="{{ '/' | relative_url }}"🏠 Build for Impact</a></p>
+<p><a href="{{ '/' | relative_url }}">🏠 Build for Impact</a></p>
+
 <h3>Articles</h3>
-<<ul>
+
+<div class="categories">
   {% assign sorted_categories = site.categories | sort %}
   {% for category in sorted_categories %}
     <div class="category-group">
@@ -18,4 +20,4 @@
       </ul>
     </div>
   {% endfor %}
-</ul>
+</div>

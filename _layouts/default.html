@@ -4,8 +4,15 @@
   <meta charset="UTF-8">
   <title>{{ page.title }}</title>
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-
 </head>
+<script>
+  function toggleCategory(id) {
+    const el = document.getElementById('cat-' + id);
+    if (el) {
+      el.style.display = (el.style.display === 'none' || !el.style.display) ? 'block' : 'none';
+    }
+  }
+</script>
 <body>
   <div class="container">
       <main class="content">
