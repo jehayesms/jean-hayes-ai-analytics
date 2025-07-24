@@ -8,7 +8,7 @@ image: /assets/images/MountJosephine.png
 
 Extracting key field information from documents is a mundane task in pretty much every organization, such as check processing, invoice processing, purchase orders, etc. Azure AI Document Intelligence is the tool that often comes to mind for automation of document processing with both prebuilt and custom templates. However, when documents are very complex, without fixed fields and values, Document Intelligence may not produce the expected results.
 
-Let’s take a real-world example: the PDF of a community education course catalog, like this one: [Spring/Summer 2025 Adult and Youth Classes]({{"/assets/files/summer-catalog-10-pages.pdf" | relative_url }}).  When open the course catalog, you will notice there is a cover page, a calendar, a table of contents, and other information I do not want to extract. I only want to extract the course information from the catalog:
+Let’s take a real-world example: the PDF of a community education course catalog, like this one: [Spring/Summer 2025 Adult and Youth Classes]({{"/assets/files/summer-catalog-10-pages.pdf" | relative_url }}). When you open the course catalog, you will notice there is a cover page, a calendar, a table of contents, and other information I do not want to extract. I only want to extract the course information from the catalog:
 
 - Course name
 - Course description
@@ -51,11 +51,11 @@ You can define the fields you're interested in—like **courseName**, **courseLo
 
 To start with Azure AI Content Understanding, you need an **Azure AI Foundry Hub**.
 
-Within your Azure Subscription, go to [Azure AI Foundry](https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/create-projects):
+Within your Azure Subscription, go to [Azure AI Foundry](https://ai.azure.com/):
 
 ![Create Project]({{ "/assets/images/3-foundry.png" | relative_url }})
 
-Create an Azure AI Foundry hub-based project in one of the [supported regions](https://learn.microsoft.com/en-us/azure/ai-services/content-understanding/service-limits):
+Create an [Azure AI Foundry hub-based project](https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/create-projects) in one of the [supported regions](https://learn.microsoft.com/en-us/azure/ai-services/content-understanding/service-limits):
 
 ![Create Project]({{ "/assets/images/4-foundry.png" | relative_url }})
 
@@ -95,7 +95,7 @@ For my course extraction example, I chose a table field type and gave it very de
 
 ![Schema Example]({{ "/assets/images/9-contentunderstanding.png" | relative_url }})
 
-> *Extract course information from this catalog. The key is the course section number, which is 4 digits followed by 2 or 3 letters. Create a row for each course section number. The course name and description is above the course section information. There may be multiple sections for a course so populate the course name and description in each row. To help you link the course name and description to the course section, the first 4 digits of the course is the same for each course name and description. Each course section always has a location, date, time, number of sessions and price. The course may also have a section name, which would be immediately above the course section number. Ignore any other general information community education and table.*
+> *Extract course information from this catalog. The key is the course section number, which is 4 digits followed by 2 or 3 letters. Create a row for each course section number. The course name and description is above the course section information. There may be multiple sections for a course so populate the course name and description in each row. To help you link the course name and description to the course section, the first 4 digits of the course is the same for each course name and description. Each course section always has a location, date, time, number of sessions and price. The course may also have a section name, which would be immediately above the course section number. Ignore any other information such as general community education and table of contents.*
 
 I then created subfields in the table, and for each subfield, I provided descriptions:
 

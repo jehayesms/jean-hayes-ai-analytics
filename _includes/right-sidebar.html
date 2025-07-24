@@ -1,18 +1,21 @@
-<p><a href="{{ '/' | relative_url }}">🏠 Build for Impact</a></p>
+<p><a>href="{{ '/' | relative_url }}"🏠 Build for Impact</a></p>
 <h3>Articles</h3>
 <<ul>
   {% assign sorted_categories = site.categories | sort %}
   {% for category in sorted_categories %}
-    <li><strong>{{ category[0] }}</strong>
-      <ul>
+    <div class="category-group">
+      <button class="category-toggle" onclick="toggleCategory('{{ category[0] | slugify }}')">
+        {{ category[0] }} ⯆
+      </button>
+      <ul id="cat-{{ category[0] | slugify }}" class="category-posts">
         {% assign sorted_posts = category[1] | sort: "date" | reverse %}
         {% for post in sorted_posts %}
           <li>
             <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-            ({{ post.date | date: "%b %d, %Y" }})
+            <span class="date">({{ post.date | date: "%b %d, %Y" }})</span>
           </li>
         {% endfor %}
       </ul>
-    </li>
+    </div>
   {% endfor %}
 </ul>
