@@ -42,13 +42,14 @@ h1 {
 
 .blog-image {
   display: block;
-  margin: 20px auto;             /* centers the image */
+  margin: 20px auto;
   width: 100%;
-  max-width: 700px;              /* consistent standard width */
-  height: auto;
-  max-height: 300px;             /* controls very tall images */
+  max-width: 700px;
+  height: 300px;                 /* fixed height */
   object-fit: cover;
+  border-radius: 6px;
 }
+
 .category-group {
   margin-bottom: 1em;
 }
