@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://jehayesms.github.io/jean-hayes-ai-analytics/sitemap.xml

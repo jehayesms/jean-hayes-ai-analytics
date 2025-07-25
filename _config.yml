@@ -3,3 +3,5 @@ description: Data Engineering, Advanced Analytics & AI Ideas and Patterns That C
 author: Jean Hayes
 url: https://jehayesms.github.io
 baseurl: /jean-hayes-ai-analytics
+plugins:
+  - jekyll-sitemap
