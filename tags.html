@@ -1,0 +1,24 @@
+---
+layout: default
+title: Tags
+permalink: /tags/
+---
+
+<h1>Browse by Tag</h1>
+<div class="tags-index">
+  {% assign tags_list = site.tags | sort %}
+  {% for tag in tags_list %}
+    <div class="tag-block">
+      <h2 id="{{ tag[0] | slugify }}">{{ tag[0] }}</h2>
+      <ul>
+        {% assign sorted_posts = tag[1] | sort: 'date' | reverse %}
+        {% for post in sorted_posts %}
+          <li>
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            <span class="date">({{ post.date | date: "%b %d, %Y" }})</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endfor %}
+</div>

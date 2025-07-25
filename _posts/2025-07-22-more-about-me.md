@@ -4,6 +4,7 @@ title: "More About Me"
 date: 2025-07-22
 categories: [Personal]
 image: /assets/images/MountJosephine.png
+tags: [Jean Hayes, Personal, Background, Experience, Microsoft, AI, Analytics, Fabric, Azure]
 ---
 
 My name is Jean Hayes and I am a seasoned technology leader and data/analytics/AI architect based in St. Paul, Minnesota. My passion lies in building practical, real-world solutions that help organizations leverage data to drive business outcomes.

@@ -11,7 +11,6 @@
   <meta property="og:description" content="{{ page.description | default: site.description }}">
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-
 </head>
 <script>
   function toggleCategory(id) {
@@ -32,9 +31,15 @@
     }
   };
 </script>
-
+<footer class="site-footer">
+  <p><a href="{{ '/tags/' | relative_url }}">Browse all tags 🏷️</a></p>
+</footer>
+<script src="{{ '/assets/js/lunr-init.js' | relative_url }}"></script>
+<script>
+  liveSearch('searchInput', 'searchResults');
+</script>
 <body>
-    {% include header.html %}
+  {% include header.html %}
   <div class="container">
       <main class="content">
       <h1>{{ page.title }}</h1>

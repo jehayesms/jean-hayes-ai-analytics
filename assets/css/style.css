@@ -1,8 +1,6 @@
 .site-header {
-  padding: 20px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 20px;
+  padding: 15px 20px;
+  margin-bottom: 10px;
 }
 
 .site-branding {
@@ -58,6 +56,7 @@ h1 {
   overflow-wrap: break-word;
   font-size: 1.6em;
   line-height: 1.3;
+  margin-top: 0.2em;
 }
 h2 {
   font-size: 1.1em;
@@ -154,4 +153,14 @@ body.dark-mode {
   border: none;
   font-size: 1.4em;
   cursor: pointer;
+}
+.tags a {
+  display: inline-block;
+  margin-right: 6px;
+  font-size: 0.9em;
+  color: #007acc;
+  text-decoration: none;
+}
+.tags a:hover {
+  text-decoration: underline;
 }
