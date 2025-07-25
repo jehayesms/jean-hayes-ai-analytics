@@ -164,3 +164,49 @@ body.dark-mode {
 .tags a:hover {
   text-decoration: underline;
 }
+.search-box {
+  position: relative;
+  max-width: 300px;
+  margin-left: auto;
+}
+
+#searchInput {
+  padding: 6px 10px;
+  font-size: 0.95em;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-results {
+  position: absolute;
+  background: #fff;
+  width: 100%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  z-index: 10;
+  max-height: 200px;
+  overflow-y: auto;
+  border-radius: 4px;
+  margin-top: 4px;
+}
+
+.search-result {
+  padding: 8px 10px;
+  font-size: 0.9em;
+  border-bottom: 1px solid #eee;
+}
+
+.search-result a {
+  text-decoration: none;
+  color: #007acc;
+}
+
+.search-result a:hover {
+  text-decoration: underline;
+}
+
+.no-results {
+  padding: 8px 10px;
+  font-style: italic;
+  color: #777;
+}
