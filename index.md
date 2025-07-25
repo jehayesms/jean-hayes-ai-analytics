@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Build for Impact
-subtitle: Data Engineering, Advanced Analytics & AI- Ideas and Patterns That Come from Practice, Not Prompts
+subtitle: Data Engineering, Advanced Analytics & AI Architectures and Patterns That Come from Practice, Not Prompts
 date: 2025-07-22
 categories: [ai, analytics]
 image: /assets/images/MountJosephine.png
