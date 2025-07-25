@@ -2,30 +2,30 @@
 let idx = null;
 let posts = [];
 
-fetch("{{ '/search.json' | relative_url }}")
-  .then((response) => response.json())
-  .then((data) => {
-    posts = data;
-    idx = lunr(function () {
-      this.field("title");
-      this.field("content");
-      this.ref("url");
+function initLunrSearch(searchData) {
+  posts = searchData;
+  idx = lunr(function () {
+    this.field("title");
+    this.field("content");
+    this.ref("url");
 
-      posts.forEach(function (doc) {
-        this.add(doc);
-      }, this);
-    });
+    posts.forEach(function (doc) {
+      this.add(doc);
+    }, this);
   });
+}
 
 function liveSearch(inputId, resultsId) {
   const input = document.getElementById(inputId);
   const results = document.getElementById(resultsId);
 
+  if (!input || !results || !idx) return;
+
   input.addEventListener("input", function () {
     const query = input.value.trim();
     results.innerHTML = "";
 
-    if (query.length > 1 && idx) {
+    if (query.length > 1) {
       const matches = idx.search(query);
       if (matches.length > 0) {
         matches.slice(0, 5).forEach((match) => {

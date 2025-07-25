@@ -36,8 +36,14 @@
 <script src="https://cdn.jsdelivr.net/npm/lunr/lunr.min.js"></script>
 <script src="{{ '/assets/js/lunr-init.js' | relative_url }}"></script>
 <script>
-  liveSearch('searchInput', 'searchResults');
+  fetch("{{ '/search.json' | relative_url }}")
+    .then((response) => response.json())
+    .then((data) => {
+      initLunrSearch(data);
+      liveSearch("searchInput", "searchResults");
+    });
 </script>
+
 
 <body>
   {% include header.html %}
