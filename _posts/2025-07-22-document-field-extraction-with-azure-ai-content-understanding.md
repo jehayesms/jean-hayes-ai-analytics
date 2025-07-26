@@ -78,6 +78,7 @@ On the next screen, choose **Multi-file processing** for its advanced reasoning 
 ### Define a Schema
 
 Next, define a schema where you can enter:
+
 - Field name
 - Field description
 - Datatype of each field
