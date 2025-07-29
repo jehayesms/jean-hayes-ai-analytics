@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>{{ page.title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{{ page.description | default: site.description }}">
   <meta name="author" content="{{ page.author | default: site.author }}">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -58,12 +59,25 @@
         {{ content }}
       </div>
     </main>
-
-    <aside class="right-sidebar">
-      {% include right-sidebar.html %}
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰ Show Sidebar</button>
+    <aside class="right-sidebar" id="mobileSidebar">
+     {% include right-sidebar.html %}
     </aside>
   </div>
   <script data-goatcounter="https://jeanhayessitestats.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+  <script>
+  function toggleSidebar() {
+    const sidebar = document.getElementById("mobileSidebar");
+    const toggleBtn = document.querySelector(".sidebar-toggle");
+    sidebar.classList.toggle("visible");
+
+    if (sidebar.classList.contains("visible")) {
+      toggleBtn.textContent = "✕ Hide Sidebar";
+    } else {
+      toggleBtn.textContent = "☰ Show Sidebar";
+    }
+  }
+  </script>
 </body>
 
