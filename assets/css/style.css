@@ -92,13 +92,14 @@ h2 {
 }
 
 
+
 .blog-image {
   display: block;
   max-width: 100%;
+  width: 100%;
   height: auto;
-  max-height: 300px;   /* or 400px if needed */
-  width: 100%;         /* ensures it fills the content width */
-  object-fit: cover;   /* maintains shape and crops if necessary */
+  aspect-ratio: 1200 / 627;  /* Maintain correct aspect ratio */
+  object-fit: cover;         /* Crop to fill container if needed */
   margin: 20px auto;
 }
 
