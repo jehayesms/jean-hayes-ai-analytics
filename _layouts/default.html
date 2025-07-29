@@ -16,7 +16,7 @@
   <!-- Open Graph for social sharing -->
   <meta property="og:title" content="{{ page.title | escape }}">
   <meta property="og:description" content="{{ page.description | default: site.description | escape }}">
-  <meta property="og:image" content="{{ site.url }}{{ page.image }}">
+  <meta property="og:image" content="{{ page.image | absolute_url }}">
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
   <meta property="og:type" content="article">
 </head>
