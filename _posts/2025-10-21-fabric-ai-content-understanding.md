@@ -1,7 +1,7 @@
 ---
 layout: default
-title: "From Complex Documents to Actionable Data"
-subtitle: "Integrating Azure AI Foundry Endpoints with Microsoft Fabric"
+title: "Integrating Azure AI Foundry Endpoints with Microsoft Fabric"
+subtitle: "From Complex Documents to Actionable Data"
 date: 2025-10-21
 categories: [Azure AI, Microsoft Fabric]
 image: /assets/images/fabric-ai-cu/architecture.png

@@ -98,7 +98,7 @@ h2 {
   height: auto;
   aspect-ratio: 1200 / 627;  /* Maintain correct aspect ratio */
   object-fit: cover;         /* Crop to fill container if needed */
-  object-position: center 20%; /* move crop down slightly */
+  object-position: center top; /* move crop down slightly */
   margin: 20px auto;
 }
 
