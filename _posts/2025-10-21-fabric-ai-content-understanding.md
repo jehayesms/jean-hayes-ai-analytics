@@ -52,17 +52,18 @@ We will store the endpoint, analyzerID, and API subscribion key in **Azure Key v
 
 The endpoint and key parameters are found on your Azure AI Foundry resource under **Resource Management → Keys and Endpoint**:
 
-![fabriccu1](/assets/images/fabric-ai-cu/fabricaicu01.png)
+![fabricaicu1](/assets/images/fabric-ai-cu/fabricaicu01.png)
 
 The analyzerID is the name of the analyzer you created in your AI Foundry hub:
 
-![fabriccu2](/assets/images/fabric-ai-cu/fabricaicu02.png)
+![fabricaicu2](/assets/images/fabric-ai-cu/fabricaicu02.png)
 
 The fileURL is the url where your file is located. In my case, it is:
 <https://raw.githubusercontent.com/contosojh/sample-files/main/summer-catalog-10-pages.pdf>
 
 After you have gathered the information needed from Azure AI Foundry, disable public internet so it can only be accessed through the private internet or a private endpoint.
-![fabriccu3](/assets/images/fabric-ai-cu/fabricaicu3.png)
+
+![fabricaicu3](/assets/images/fabric-ai-cu/fabricaicu03.png)
 
 ---
 
@@ -70,21 +71,22 @@ After you have gathered the information needed from Azure AI Foundry, disable pu
 
 Create 3 secrets in Key vault for the endpoint, the analyzerID, and the key:
 
-![fabriccu4](/assets/images/fabric-ai-cu/fabricaicu4.png)
+![fabricaicu4](/assets/images/fabric-ai-cu/fabricaicu04.png)
 
 When you have completed creating your secrets, disable public access to the key vault so it will only be available over the private internet.
-![fabriccu5](/assets/images/fabric-ai-cu/fabricaicu05.png)
+![fabricaicu5](/assets/images/fabric-ai-cu/fabricaicu05.png)
 
 ---
 
 ## Create Workspace and Private Endpoints
 
-Create a new Fabric workspace (or use an existing workspace). Open up the Workspace settings to create your private endpoints for **Azure Key vault** and your **AI Foundry Resource**. These endpoints are actually called *managed private endpoints* because they reside securely within Fabric. No need to create them in your own Vnet!
-![fabriccu6](/assets/images/fabric-ai-cu/fabricaicu06.png)
+Create a new Microsoft Fabric workspace (or use an existing workspace). Open up the Workspace settings to create your private endpoints for **Azure Key vault** and your **AI Foundry Resource**. These endpoints are actually called *managed private endpoints* because they reside securely within Fabric. No need to create them in your own Vnet!
+
+![fabricaicu6](/assets/images/fabric-ai-cu/fabricaicu06.png)
 
 To create the AI Foundry managed private endpoint, go to the **Azure portal**, then to your **Azure AI Foundry resource Overview page**. Click on the **JSON view** on the right and copy the **Resource ID**.
 
-![fabriccu7](/assets/images/fabric-ai-cu/fabricaicu07.png)
+![fabricaicu7](/assets/images/fabric-ai-cu/fabricaicu07.png)
 
 Paste the Resource ID in the Resource identifier when creating the private endpoint. Next, click on the drop-down box for the Target sub-resource and click on **Cognitive Services**.
 
@@ -127,25 +129,25 @@ The notebook contains the parameters as shown below. These will be passed in thr
 
 To get your workspace and lakehouse id values, navigate to your lakehouse. The workspace id is the string following `/groups/` and the lakehouse id is the string following `/lakehouses/`:
 
-![fabriccu12](/assets/images/fabric-ai-cu/fabricaicu12.png)
+![fabricaicu12](/assets/images/fabric-ai-cu/fabricaicu12.png)
 
 Paste these into the parameter values for `content_ws_id` and `content_lh_id`.
 
-Get the key vault secrets for the API subscription key, the AI endpoint, and the analyzer name.
+Below is the code to get the key vault secrets for the API subscription key, the AI endpoint, and the analyzer name.
 
-![fabriccu13](/assets/images/fabric-ai-cu/fabricaicu13.png)
+![fabricaicu13](/assets/images/fabric-ai-cu/fabricaicu13.png)
 
 When you run the notebook, it will send a post request to analyze the PDF:
 
-![fabriccu14](/assets/images/fabric-ai-cu/fabricaicu14.png)
+![fabricaicu14](/assets/images/fabric-ai-cu/fabricaicu14.png)
 
 It then sends polling requests until the request has completed or exceeded the timeout value:
 
-![fabriccu15](/assets/images/fabric-ai-cu/fabricaicu15.png)
+![fabricaicu15](/assets/images/fabric-ai-cu/fabricaicu15.png)
 
 If it has completed successfully, it will write/append the data to the table.
 
-![fabriccu16](/assets/images/fabric-ai-cu/fabricaicu16.png)
+![fabricaicu16](/assets/images/fabric-ai-cu/fabricaicu16.png)
 ---
 
 ## Create Variable Library
@@ -154,7 +156,7 @@ Next we’ll create a **variable library**. A variable library is an item in Fab
 
 Go to your Workspace and create a new **Variable Library** item. Add variables and values for the Key Vault endpoint, the API subscription key secret name, the AI endpoint secret name, the analyzer name secret name, the lakehouse id, and the warehouse id.
 
-![fabriccu17](/assets/images/fabric-ai-cu/fabriccu17.png)
+![fabricaicu17](/assets/images/fabric-ai-cu/fabricaicu17.png)
 
 ---
 
@@ -164,15 +166,15 @@ Create a new pipeline in your workspace. This may be your simplest pipeline ever
 
 Add parameters for the **document location**, your **lakehouse schema name**, and your **lakehouse table name**. These are parameterized at the pipeline level to make your pipeline reusable! For example, the content analyzer was created for the Summer 2025 Community Education catalog, but the analyzer can gather information for Fall 2025, Winter 2026, etc. You also have the option to store the data in the same or in separate tables.
 
-![fabriccu18](/assets/images/fabric-ai-cu/fabriccu18.png)
+![fabricaicu18](/assets/images/fabric-ai-cu/fabricaicu18.png)
 
 Go to the **Library variables** tab and add in the library variables you will use in this pipeline.
 
-![fabriccu19](/assets/images/fabric-ai-cu/fabriccu19.png)
+![fabricaicu19](/assets/images/fabric-ai-cu/fabricaicu19.png)
 
 On the **pipeline canvas**, add a **Notebook activity**. Specify the workspace and notebook name. Then expand the **Base parameters** section and add in the parameter names used in the notebook and specify the appropriate pipeline parameter or library variable for each:
 
-![fabriccu19](/assets/images/fabric-ai-cu/fabriccu20.png)
+![fabricaicu20](/assets/images/fabric-ai-cu/fabricaicu20.png)
 
 ---
 
@@ -196,63 +198,62 @@ Which I changed to:
 
 Next, create and add a **Data Agent** item to your workspace. Give it a name, add your lakehouse and table, then Agent Instructions:
 
-![fabriccu22](/assets/images/fabric-ai-cu/fabriccu22.png)
+![fabricaicu22](/assets/images/fabric-ai-cu/fabricaicu22.png)
 
 Then add instructions about your data source, the Delta Lake table. For example, delta lake string values are case sensitive, so I included that in my instructions. I also included synonyms for different fields.
 
-![fabriccu23](/assets/images/fabric-ai-cu/fabricaicu23.png)
+![fabricaicu23](/assets/images/fabric-ai-cu/fabricaicufabricaicu23.png)
 
 After that, I will test my agent:
 
-![fabriccu24](/assets/images/fabric-ai-cu/fabriccu24.png)
+![fabricaicu24](/assets/images/fabric-ai-cu/fabricaicu24.png)
 
 I really just wanted a quick list:
 
-![fabriccu25](/assets/images/fabric-ai-cu/fabriccu25.png)
+![fabricaicu25](/assets/images/fabric-ai-cu/fabricaicu25.png)
 
 Then I asked about classes that are out of the ordinary:
 
-![fabriccu26](/assets/images/fabric-ai-cu/fabriccu26.png)
+![fabricaicu26](/assets/images/fabric-ai-cu/fabricaicu26.png)
 
+![fabricaicu27](/assets/images/fabric-ai-cu/fabricaicu27.png)
 
-![fabriccu27](/assets/images/fabric-ai-cu/fabriccu27.png)
-
-![fabriccu28](/assets/images/fabric-ai-cu/fabriccu28.png)
+![fabricaicu28](/assets/images/fabric-ai-cu/fabricaicu28.png)
 
 Hmmm … I then asked about what classes are available on week
 ends and it did not give me a response:
 
-![fabriccu29](/assets/images/fabric-ai-cu/fabriccu29.png)
+![fabricaicu29](/assets/images/fabric-ai-cu/fabricaicu29.png)
 
 So I will tell the agent how to do it:
 
-![fabriccu30](/assets/images/fabric-ai-cu/fabriccu30.png)
+![fabricaicu30](/assets/images/fabric-ai-cu/fabricaicu30.png)
 
 You can click under the response and see the query it ran:
 
-![fabriccu31](/assets/images/fabric-ai-cu/fabriccu31.png)
+![fabricaicu31](/assets/images/fabric-ai-cu/fabricaicu31.png)
 
 You can see that the agent figured out how to query for a specific day of the week. But I want the agent to know how to query or return a value for any day of the week. I will ask the agent to return a day of the week for all the classes:
 
-![fabriccu32](/assets/images/fabric-ai-cu/fabriccu32.png)
+![fabricaicu32](/assets/images/fabric-ai-cu/fabricaicu32.png)
 
 I will save this query in my example queries, in case others have the same question!
 
-![fabriccu33](/assets/images/fabric-ai-cu/fabriccu33.png)
+![fabricaicu33](/assets/images/fabric-ai-cu/fabricaicu33.png)
 
 I then cleared the chat and asked more questions about days of the week
 
-![fabriccu34](/assets/images/fabric-ai-cu/fabriccu34.png)
+![fabricaicu34](/assets/images/fabric-ai-cu/fabricaicu34.png)
 
-![fabriccu35](/assets/images/fabric-ai-cu/fabriccu35.png)
+![fabricaicu35](/assets/images/fabric-ai-cu/fabricaicu35.png)
 
 OK you can see I was having fun with that! I will leave it as-is now, and I will publish my agent for others to use:
 
-![fabriccu36](/assets/images/fabric-ai-cu/fabriccu36.png)
+![fabricaicu36](/assets/images/fabric-ai-cu/fabricaicu36.png)
 
 If there are other applications that will use the agent, they can leverage and call this API:
 
-![fabriccu37](/assets/images/fabric-ai-cu/fabriccu37.png)
+![fabricaicu37](/assets/images/fabric-ai-cu/fabricaicu37.png)
 
 ---
 
@@ -260,11 +261,13 @@ If there are other applications that will use the agent, they can leverage and c
 
 Now that my Data Agent is published, I can use this in Power BI Copilot! Click on the **“Add items for better insights”** and select the agent:
 
-![fabriccu38](/assets/images/fabric-ai-cu/fabriccu38.png)
+![fabricaicu38](/assets/images/fabric-ai-cu/fabricaicu38.png)
+
+![fabricaicu39](/assets/images/fabric-ai-cu/fabricaicu39.png)
 
 I can share the agent with others and easily modify it if they report that it’s not returning expected results. I can simply update the agent instructions, data source instructions, or add more example queries and then re-publish.
 
-![fabriccu38](/assets/images/fabric-ai-cu/fabriccu38.png)
+![fabricaicu40](/assets/images/fabric-ai-cu/fabricaicu40.png)
 
 ---
 
