@@ -61,7 +61,10 @@
       <h2>{{ page.subtitle }}</h2> 
       {% if page.image %}
         <img src="{{ page.image | relative_url }}" alt="Blog Image" class="blog-image">
-      {% endif %}
+        {% if page.image_caption %}
+          <p class="image-caption">{{ page.image_caption }}</p>
+       {% endif %}
+     {% endif %}
       <div class="post-content">
         {{ content }}
       </div>
