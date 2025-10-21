@@ -11,18 +11,17 @@ image: /assets/images/fabric-ai-cu/architecture.png
 
 In [Document Field Extraction with Azure AI Content Understanding](https://jehayesms.github.io/jean-hayes-ai-analytics/azure%20ai/2025/07/22/document-field-extraction-with-azure-ai-content-understanding.html), I illustrated how to use **Azure AI Foundry Content Understanding** to extract data from complex documents using Natural Language Processing. The solution extracted course information from a Community Education course catalog into a table format by describing how to return each field.
 
-In this article, we’ll extend that solution using **Microsoft Fabric**.  
-Fabric is ideal because it allows you to:
+In this article, we’ll extend that solution to call the endpoint, analyze the document, and store the results using **Microsoft Fabric**. Fabric is ideal because it allows you to:
 
-- Invoke Azure AI endpoints directly from a notebook  
-- Store results in a Fabric Lakehouse **without exposing data publicly**  
+- **Invoke Azure AI endpoints**directly from a notebook  
+- **Store results in a Fabric Lakehouse**
 - Leverage **managed private endpoints** for secure access to Azure resources  
 - Build and test a **Fabric Data Agent** without deploying new infrastructure  
 - Allow **Power BI Copilot** users and **third-party chat apps** to query the results
 
 You will also learn how to:
 
-- Securely access Azure resources with managed private endpoints  
+- **Securely access Azure** resources with managed private endpoints  
 - Retrieve **Azure Key Vault secrets** within Fabric  
 - Use **Variable Libraries** and **Pipeline Parameters** to create reusable assets  
 - Call the **Azure AI Content Understanding REST API** from a Fabric notebook  
@@ -69,7 +68,7 @@ After you have gathered the information needed from Azure AI Foundry, disable pu
 
 ## Store Secrets in Azure Key vault
 
-Create 3 secrets in Key vault for the endpoint, the analyzerID, and the key:
+Create 3 secrets in Key vault for the endpoint, the analyzerID, and the key parameters:
 
 ![fabricaicu4](/assets/images/fabric-ai-cu/fabricaicu04.png)
 
@@ -196,19 +195,19 @@ Which I changed to:
 
 ## Create, Test and Publish Data Agent
 
-Next, create and add a **Data Agent** item to your workspace. Give it a name, add your lakehouse and table, then Agent Instructions:
+Next, add a **Data Agent** item to your workspace. Give it a name, add your lakehouse and table, then Agent Instructions:
 
 ![fabricaicu22](/assets/images/fabric-ai-cu/fabricaicu22.png)
 
 Then add instructions about your data source, the Delta Lake table. For example, delta lake string values are case sensitive, so I included that in my instructions. I also included synonyms for different fields.
 
-![fabricaicu23](/assets/images/fabric-ai-cu/fabricaicufabricaicu23.png)
+![fabricaicu23](/assets/images/fabric-ai-cu/fabricaicu23.png)
 
-After that, I will test my agent:
+After that, I will test my agent by asking about pottery classes:
 
 ![fabricaicu24](/assets/images/fabric-ai-cu/fabricaicu24.png)
 
-I really just wanted a quick list:
+But I really just wanted a quick list:
 
 ![fabricaicu25](/assets/images/fabric-ai-cu/fabricaicu25.png)
 
@@ -247,7 +246,7 @@ I then cleared the chat and asked more questions about days of the week
 
 ![fabricaicu35](/assets/images/fabric-ai-cu/fabricaicu35.png)
 
-OK you can see I was having fun with that! I will leave it as-is now, and I will publish my agent for others to use:
+OK you can see I was having fun with that! I will leave it as-is for now, and I will publish my agent for others to use:
 
 ![fabricaicu36](/assets/images/fabric-ai-cu/fabricaicu36.png)
 
@@ -259,9 +258,11 @@ If there are other applications that will use the agent, they can leverage and c
 
 ## Use Data Agent in Power BI CoPilot
 
-Now that my Data Agent is published, I can use this in Power BI Copilot! Click on the **“Add items for better insights”** and select the agent:
+Now that my Data Agent is published, I can use this in Power BI Copilot! Start Power BI Copilot and click on the **“Add items for better insights”** and select the agent:
 
 ![fabricaicu38](/assets/images/fabric-ai-cu/fabricaicu38.png)
+
+And start asking questions:
 
 ![fabricaicu39](/assets/images/fabric-ai-cu/fabricaicu39.png)
 
@@ -273,4 +274,24 @@ I can share the agent with others and easily modify it if they report that it’
 
 ## Conclusion
 
-Integrating **Azure AI Content Understanding** with **Microsoft Fabric** enables a secure, scalable, and highly flexible approach to extracting and analyzing data from complex documents. By leveraging managed private endpoints, Key Vault secrets, variable libraries, and reusable pipelines, you can streamline data workflows and empower conversational AI agents to deliver actionable insights. This solution not only simplifies technical implementation but also enhances collaboration and accessibility for users across platforms like **Power BI Copilot** or your own custom app, making advanced document intelligence practical and impactful.
+Microsoft Fabric provides a secure, scalable, and flexible foundation for leveraging your  Azure AI Foundry solutions, enabling organizations to deliver AI-powered insights directly to Power BI users as well as 3rd party applications, This approach not only simplifies technical implementation but also enhances collaboration and accessibility, making advanced AI readily available to all.
+
+## References
+
+[Azure AI Foundry - Content Understanding REST API](https://learn.microsoft.com/en-us/rest/api/content-understanding/)
+
+[Azure Key Vault Overview](https://learn.microsoft.com/en-us/azure/key-vault/general/overview)
+
+[Azure Key Vault - Get Secret REST API](https://learn.microsoft.com/en-us/rest/api/keyvault/secrets/get-secret/get-secret?view=rest-keyvault-secrets-2025-07-01&tabs=HTTP)
+
+[Fabric Managed Private Endpoints Overview](https://learn.microsoft.com/en-us/fabric/security/security-managed-private-endpoints-overview)
+
+[Get Started with Variable Libraries](https://learn.microsoft.com/en-us/fabric/cicd/variable-library/get-started-variable-libraries?tabs=home-page)
+
+[Data Factory Pipeline Parameters](https://learn.microsoft.com/en-us/fabric/data-factory/parameters)
+
+[Fabric Notebook Parameters](https://learn.microsoft.com/en-us/fabric/data-engineering/how-to-use-notebook)
+
+[Fabric Data Agent Overview](https://learn.microsoft.com/en-us/fabric/data-science/concept-data-agent)
+
+[Standalone Power BI Copilot](https://learn.microsoft.com/en-us/power-bi/create-reports/copilot-chat-with-data-standalone)
