@@ -13,11 +13,12 @@ In [Document Field Extraction with Azure AI Content Understanding](https://jehay
 
 In this article, we’ll extend that solution to call the endpoint, analyze the document, and store the results using **Microsoft Fabric**. Fabric is ideal because it allows you to:
 
-- **Invoke Azure AI endpoints**directly from a notebook  
-- **Store results in a Fabric Lakehouse**
-- Leverage **managed private endpoints** for secure access to Azure resources  
-- Build and test a **Fabric Data Agent** without deploying new infrastructure  
-- Allow **Power BI Copilot** users and **third-party chat apps** to query the results
+- **Invoke Azure AI endpoints** directly from a notebook  
+- **Store results in a Fabric Lakehouse** without requiring any resources to access the lakehouse or travel across the public internet
+- Leverage **managed private endpoints** for **secure access** to Azure resources  
+- Build a conversational Q&A agent using **Fabric Data Agent** without deploying any new infrastructure  
+- Allow Power BI Copilot users to ask questions using the Fabric Data Agent
+- Allow 3rd party chat/web applications to call the Fabric Data Agent
 
 You will also learn how to:
 
@@ -25,13 +26,14 @@ You will also learn how to:
 - Retrieve **Azure Key Vault secrets** within Fabric  
 - Use **Variable Libraries** and **Pipeline Parameters** to create reusable assets  
 - Call the **Azure AI Content Understanding REST API** from a Fabric notebook  
-- Build and publish a **Fabric Data Agent** that integrates with Power BI Copilot  
+- Decide when to store Fabric variables in Azure Key Vault vs Variable Libraries vs Pipeline Parameters
+- Build and publish a **Fabric Data Agent** and integrate it with Power BI Copilot  
 
 ---
 
 ## Azure Content Understanding REST API
 
-Below is an  `curl` syntax to call Azure AI Content Understanding Analyzer:
+First of all, we'll review how to call the Azure AI Content Understanding Analyzer I built in the previous article to extract course information from a community education catalog that's in a PDF file. We'll eventually call this from a Fabric notebook, but it is important to understand the parameter values needed. Below is an  `curl` syntax for calling the Content Understanding REST API:
 
 ```bash
 curl -i -X POST "{endpoint}/contentunderstanding/analyzers/{analyzerId}:analyze?api-version=2025-05-01-preview" \
@@ -47,9 +49,11 @@ The parameters are:
 - key
 - fileURL
 
-We will store the endpoint, analyzerID, and API subscribion key in **Azure Key vault**, since these are constants for calling the analyzer. The fileURL will be specified as a **Fabric Pipeline parameter** so we can reuse the analyzer for different catalog files when calling the pipeline.
+The endpoint, analyzerID, and API subscription key will be stored as  **Azure Key vault secrets**, since these values will be the same every time we call the analyzer. Plus, it is a best practice to store sensitive information like API keys in Key vault.
 
-The endpoint and key parameters are found on your Azure AI Foundry resource under **Resource Management → Keys and Endpoint**:
+The fileURL will be specified as a **Fabric Pipeline parameter** so we can reuse the analyzer for different catalog files when calling the pipeline.
+
+The endpoint and API subscription key values are found in the Azure AI Foundry resource under **Resource Management → Keys and Endpoint**:
 
 ![fabricaicu1](/assets/images/fabric-ai-cu/fabricaicu01.png)
 
@@ -87,7 +91,7 @@ To create the AI Foundry managed private endpoint, go to the **Azure portal**, t
 
 ![fabricaicu7](/assets/images/fabric-ai-cu/fabricaicu07.png)
 
-Paste the Resource ID in the Resource identifier when creating the private endpoint. Next, click on the drop-down box for the Target sub-resource and click on **Cognitive Services**.
+Paste the Resource ID in the Resource identifier. Click on the drop-down box for the Target sub-resource and select **Cognitive Services**.
 
 ![fabricc8](/assets/images/fabric-ai-cu/fabricaicu08.png)
 
@@ -114,19 +118,17 @@ Create a new Lakehouse if you do not want to use an existing warehouse.
 
 ## Create a Notebook
 
-Download the python notebook located here:
-
-[Download the Fabric AI Content Understanding Notebook](/assets/notebooks/fabric-ai-cu/nbGetCourseInfo.ipynb)
+Download the python notebook: [Download the Fabric AI Content Understanding Notebook](/assets/notebooks/fabric-ai-cu/nbGetCourseInfo.ipynb)
 
 Then go to your Fabric Workspace and select Import from the top menu:
 
 ![fabricc10](/assets/images/fabric-ai-cu/fabricaicu10.png)
 
-The notebook contains the parameters as shown below. These will be passed in through the **Pipeline Notebook activity**. To test in-line, you can replace the noted values below with default values; otherwise, you can leave as-is and when the notebook is called from the pipeline, the parameter value defaults will be replaced by the parameter values passed in.
+The notebook contains the parameters as shown below. These will be passed in by the **Pipeline Notebook activity**. To test in-line, you can replace the noted values below with your values; otherwise, you can leave as-is and when the notebook is called from the pipeline, the parameter value defaults will be replaced by the parameter values passed in.
 
 ![fabricc11](/assets/images/fabric-ai-cu/fabricaicu11.png)
 
-To get your workspace and lakehouse id values, navigate to your lakehouse. The workspace id is the string following `/groups/` and the lakehouse id is the string following `/lakehouses/`:
+To get your workspace and lakehouse id values, navigate to your Fabric lakehouse. The workspace id is the string following `/groups/` and the lakehouse id is the string following `/lakehouses/`:
 
 ![fabricaicu12](/assets/images/fabric-ai-cu/fabricaicu12.png)
 
@@ -144,14 +146,14 @@ It then sends polling requests until the request has completed or exceeded the t
 
 ![fabricaicu15](/assets/images/fabric-ai-cu/fabricaicu15.png)
 
-If it has completed successfully, it will write/append the data to the table.
+If it completes successfully, it will write/append the data to the table.
 
 ![fabricaicu16](/assets/images/fabric-ai-cu/fabricaicu16.png)
 ---
 
 ## Create Variable Library
 
-Next we’ll create a **variable library**. A variable library is an item in Fabric that lets you store values at the workspace level. These are commonly used for CI/CD for connection strings, lakehouse names, warehouse names, etc.—values that need to be parameterized, but should be constant at the workspace level.
+Next we’ll create a **variable library**. A variable library is an item in Fabric that lets you store values at the workspace level. These are commonly used for CI/CD for connection strings, lakehouse names, warehouse names, etc.— values that need to be parameterized, but should be constant at the workspace level.
 
 Go to your Workspace and create a new **Variable Library** item. Add variables and values for the Key Vault endpoint, the API subscription key secret name, the AI endpoint secret name, the analyzer name secret name, the lakehouse id, and the warehouse id.
 
@@ -179,7 +181,7 @@ On the **pipeline canvas**, add a **Notebook activity**. Specify the workspace a
 
 ## Run the Pipeline and Test the Results
 
-Run the pipeline and validate the results by querying the lakehouse table:
+Run the pipeline and validate the results by querying the lakehouse Delta table:
 
 ![fabricaicu21](/assets/images/fabric-ai-cu/fabricaicu21.png)
 
@@ -195,7 +197,7 @@ Which I changed to:
 
 ## Create, Test and Publish Data Agent
 
-Next, add a **Data Agent** item to your workspace. Give it a name, add your lakehouse and table, then Agent Instructions:
+Next, add a **Data Agent** item to your Fabric workspace. Give it a name, add your lakehouse and table, then Agent Instructions:
 
 ![fabricaicu22](/assets/images/fabric-ai-cu/fabricaicu22.png)
 
@@ -219,8 +221,7 @@ Then I asked about classes that are out of the ordinary:
 
 ![fabricaicu28](/assets/images/fabric-ai-cu/fabricaicu28.png)
 
-Hmmm … I then asked about what classes are available on week
-ends and it did not give me a response:
+Hmmm … I then asked about what classes are available on weekends and it did not give me a response:
 
 ![fabricaicu29](/assets/images/fabric-ai-cu/fabricaicu29.png)
 
@@ -274,7 +275,7 @@ I can share the agent with others and easily modify it if they report that it’
 
 ## Conclusion
 
-Microsoft Fabric provides a secure, scalable, and flexible foundation for leveraging your  Azure AI Foundry solutions, enabling organizations to deliver AI-powered insights directly to Power BI users as well as 3rd party applications, This approach not only simplifies technical implementation but also enhances collaboration and accessibility, making advanced AI readily available to all.
+Microsoft Fabric provides a secure, scalable, and flexible foundation for leveraging your Azure AI Foundry solutions, enabling organizations to deliver AI-powered insights directly to Power BI users as well as 3rd party applications. This approach not only simplifies technical implementation but also enhances collaboration and accessibility, making advanced AI readily available to all.
 
 ## References
 
