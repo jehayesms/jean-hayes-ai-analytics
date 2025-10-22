@@ -16,8 +16,8 @@ In this article, we’ll extend that solution to call the endpoint, analyze the 
 - **Store results in a Fabric Lakehouse** without requiring any resources to access the lakehouse or travel across the public internet
 - Leverage **managed private endpoints** for **secure access** to Azure resources  
 - Build a conversational Q&A agent using **Fabric Data Agent** without deploying any new infrastructure  
-- Allow Power BI Copilot users to ask questions using the Fabric Data Agent
-- Allow 3rd party chat/web applications to call the Fabric Data Agent
+- Allow Power BI **Copilot** users to **ask questions** using the Fabric Data Agent
+- Allow **3rd party chat/web applications** to call the Fabric Data Agent
 
 You will also learn how to:
 
@@ -117,7 +117,9 @@ Create a new Lakehouse if you do not want to use an existing warehouse.
 
 ## Create a Notebook
 
-Download the python notebook: [Download the Fabric AI Content Understanding Notebook]({{ '/assets/notebooks/fabric-ai-cu/nbGetCourseInfo.ipynb' | relative_url }})
+<a href="{{ '/assets/notebooks/fabric-ai-cu/nbGetCourseInfo.ipynb' | relative_url }}" download>
+  📥 Download the python notebook
+</a>
 
 Then go to your Fabric Workspace and select Import from the top menu:
 
