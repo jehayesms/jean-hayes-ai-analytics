@@ -134,7 +134,7 @@ h2 {
 .category-posts {
   padding-left: 1em;
   list-style: none;
-  margin: 0;
+  margin-bottom: 0.1em;
   display: none; /* collapsed by default */
 }
 
