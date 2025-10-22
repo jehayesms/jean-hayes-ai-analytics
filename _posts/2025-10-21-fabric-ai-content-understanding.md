@@ -117,7 +117,7 @@ Create a new Lakehouse if you do not want to use an existing warehouse.
 
 ## Create a Notebook
 
-Download the python notebook: [Download the Fabric AI Content Understanding Notebook]({{ "/assets/notebooks/fabric-ai-cu/nbGetCourseInfo.ipynb)
+Download the python notebook: [Download the Fabric AI Content Understanding Notebook](/assets/notebooks/fabric-ai-cu/nbGetCourseInfo.ipynb)
 
 Then go to your Fabric Workspace and select Import from the top menu:
 
