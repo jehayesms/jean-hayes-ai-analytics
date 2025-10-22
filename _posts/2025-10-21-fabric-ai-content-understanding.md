@@ -5,9 +5,9 @@ subtitle: "From Complex Documents to Actionable Data"
 date: 2025-10-21
 categories: [Azure AI, Microsoft Fabric]
 image: /assets/images/fabric-ai-cu/architecture.png
-
 image_caption: "Fabric Notebook calls Azure AI Foundry endpoint to analyze document and stores results in Lakehouse; Fabric Data Agent provides Q&A access to results."
 ---
+
 In [Document Field Extraction with Azure AI Content Understanding](https://jehayesms.github.io/jean-hayes-ai-analytics/azure%20ai/2025/07/22/document-field-extraction-with-azure-ai-content-understanding.html), I illustrated how to use **Azure AI Foundry Content Understanding** to extract data from complex documents using Natural Language Processing. The solution extracted course information from a Community Education course catalog into a table format by describing how to return each field.
 
 In this article, we’ll extend that solution to call the endpoint, analyze the document, and store the results using **Microsoft Fabric**. Fabric is ideal because it allows you to:
@@ -54,7 +54,7 @@ The fileURL will be specified as a **Fabric Pipeline parameter** so we can reuse
 
 The endpoint and API subscription key values are found in the Azure AI Foundry resource under **Resource Management → Keys and Endpoint**:
 
-![fabricaicu1]({{ "/assets/images/fabric-ai-cu/fabricaicu01.png" | relative_url }})
+![fabricaicu1]({{ "/assets/images/fabricaicu01.png" | relative_url }})
 
 The analyzerID is the name of the analyzer you created in your AI Foundry hub:
 
