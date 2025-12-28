@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Microsoft Fabric Capacity and Workspace Design"
-subtitle: "Design for performance and scalability"
+subtitle: "Capacity and Workspace Design for performance, scalability, security and governance"
 date: 2025-10-21
 categories: [Microsoft Fabric]
 image: /assets/images/fabric-cap-ws/fabric-cap-ws-01.png
@@ -19,8 +19,6 @@ Capacity and workspace design:
 - Affects security and permissions management
 - Is integral in CI/CD and DevOps practices
 - Enables better cost management
-
-- Supports multi-region deployments for global organizations
   
 In this blog, we will:
 
@@ -53,6 +51,8 @@ The key for optimizing Fabric capacity cost and performance is to find the "swee
   - Set up alerts for high usage or performance issues to proactively manage capacity resources
 
 The goal is for the capacity to be less than 80% utilized but to not be underutilized either.
+
+Additionally, like other Fabric resources, Fabric Capacities can be tagged for cost allocation and tracking. If different departments need to account for their Fabric costs separately, setting up separate capacities and tagging them appropriately can simplify [cost management](https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/cost-allocation-introduction#tags).
 
 Check the [Fabric Roadmap](https://roadmap.fabric.microsoft.com/?product=administration%2Cgovernanceandsecurity) frequently for upcoming features that may impact capacity management, such as Fabric capacity overage billing, due for public preview in Q1 2026.
 
