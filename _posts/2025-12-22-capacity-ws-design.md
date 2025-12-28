@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Microsoft Fabric Capacity and Workspace Design""
+title: "Microsoft Fabric Capacity and Workspace Design"
 subtitle: "Design for performance and scalability"
 date: 2025-10-21
 categories: [Microsoft Fabric]
