@@ -2,7 +2,7 @@
 layout: default
 title: "Microsoft Fabric Capacity and Workspace Design"
 subtitle: "Capacity and Workspace Design for performance, scalability, security and governance"
-date: 2025-10-21
+date: 2025-12-29
 categories: [Microsoft Fabric]
 image: /assets/images/fabric-cap-ws/fabric-cap-ws-01.png
 image_caption: ""
@@ -29,7 +29,9 @@ In this blog, we will:
 
 With this knowledge, you will be better equipped to design a Fabric environment that meets your organization's needs both now and in the future.
 
-# **Fabric Capacity Consumption**
+# Key concepts around Fabric Capacities and Workspaces
+
+## Fabric Capacity Consumption
 
 Fabric Capacities are the backbone of resource allocation in Microsoft Fabric. They provide dedicated resources for hosting and running workloads, ensuring optimal performance and reliability. All Fabric items on a single capacity share the compute. For example, if a Fabric pipeline calls a SQL script in a Data Warehouse on the same capacity, both the script consume compute from that single capacity. If performance was slow on the SQL script, you may need scale up or scale out the capacity. In contrast, if an Azure Data Factory pipeline calls an Azure SQL DB script, the pipeline would use an Azure Integration Runtime compute for pipeline activities and the Azure SQL DB compute for SQL script execution. For performance issues with Azure SQL DB, you would just scale up the compute for a single resource, the Azure SQL DB.
 
@@ -58,7 +60,7 @@ Additionally, like other Fabric resources, Fabric Capacities can be tagged for c
 
 Check the [Fabric Roadmap](https://roadmap.fabric.microsoft.com/?product=administration%2Cgovernanceandsecurity) frequently for upcoming features that may impact capacity management, such as Fabric capacity overage billing, due for public preview in Q1 2026.
 
-# **Workspace Design Considerations**
+## Workspace Design Considerations
 
 ![Fabric Deployment Pipelines Overview]( {{"assets/images/fabric-cap-ws/fabric-cap-ws-03.png"| relative_url}} )
 
@@ -81,7 +83,7 @@ Workspaces in Microsoft Fabric are logical containers for organizing and managin
 
 So as we move on to the next section, reviewing your current and future requirements, keep in mind the considerations above around capacity consumption and workspace capabilities.
 
-# **Discover Current and Future Fabric Requirements**
+# Discover Current and Future Fabric Requirements
 
 Before designing your Fabric capacities and workspaces, it's essential to understand your organization's current and future needs. We'll cover key questions to ask around:
 
@@ -91,9 +93,9 @@ Before designing your Fabric capacities and workspaces, it's essential to unders
 - CI/CD Environment
 - Current and Future Data Architectures
 
-## **Fabric Today**
+## Fabric Today
 
-### What you are doing in Microsoft Fabric today?
+### What's going on in your Microsoft Fabric environment today?
 
 - What are current business use cases?
 - What are your deliverables?
@@ -102,7 +104,7 @@ Before designing your Fabric capacities and workspaces, it's essential to unders
 - Do you have any architecture diagrams? Ensure they are up to date.
 - What are your challenges?
 
-### **What Fabric experiences are you using and for what purpose?**
+### What Fabric experiences are you using and for what purpose?
 
 - Power BI reports
 - Semantic models – Direct Lake, Import, Direct Query
@@ -139,7 +141,7 @@ Before designing your Fabric capacities and workspaces, it's essential to unders
 - What reports have the most consumption?
 - Are there any spark jobs that are resource intensive?
 
-## **Fabric Future**
+## Fabric Future
 
 ### What are your goals for the next 6-12 months?
 
@@ -156,9 +158,9 @@ Before designing your Fabric capacities and workspaces, it's essential to unders
   - Near RealTime Alerting
   - Other
 
-### What are your goals for the beyond 6-12 months?
+### What are your goals beyond 12 months?
 
-- What are your business use cases you wish to implement in the next 6 months?
+- What are your business use cases you wish to implement a year from now?
   - For each use case, what is the priority and timeline?
 - What features are you considering and for what use case? For example…
   - Enterprise Data Warehouse for Reporting
@@ -194,7 +196,7 @@ Note: Best practice is to set up security groups for personas
 - IT Managed Report Developers
 - Data scientists – consuming data, training
 
-## ** What does your CI/CD environment look like? **
+## What does your CI/CD environment look like?
 
 - Do you have a CI/CD environment set up today?
 - Are you using Github or Azure DevOps?
