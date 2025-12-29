@@ -63,9 +63,9 @@ Check the [Fabric Roadmap](https://roadmap.fabric.microsoft.com/?product=adminis
 Workspaces in Microsoft Fabric are logical containers for organizing and managing your data, analytics, and AI assets. They provide a way to group related items together, control access and permissions, and facilitate collaboration among team members. When designing workspaces, consider the following:
 
 - Workspaces can easily be moved between capacities **in the same region**
-  - So even though you may start with a single capacity, consider organizing your workloads into workspaces that may benefit from running on a new capacity in the future. A great example is having reports and semantic models in separate workspaces, both for performance, security, and data governance
+  - So though you may start with a single capacity, consider organizing your Fabric items in different workspaces that may benefit from running on a separate capacity in the future. A great example is having reports and semantic models in separate workspaces then pipelines and Spark jobs, especially if the pipelines and Spark jobs are resource intensive and/or run during business hours
   - If you need to support multi-regions, you will need separate capacities and workspaces in each region. You cannot simply move a workspace to a capacity in a different region - you would need to recreate the workspace and its contents in the new region
-- Limit access to given workspaces
+- Limit access to workspaces
   - Use Power BI Apps to share reports and dashboards without giving report consumers access to the workspace itself
   - Assign item level access to Fabric items such as a Lakehouse or Semantic model rather than giving users access to the entire workspace
     - Segregating Fabric items into different workspaces based upon access needs can simplify both security; For example, creating a workspace for power users to build their own reports over semantic models in a governed workspace
@@ -75,4 +75,4 @@ Workspaces in Microsoft Fabric are logical containers for organizing and managin
   - Git repos are at the workspace level
   - Workspaces can be used to separate development, testing, and production environments
   - Use deployment pipelines to automate the deployment of items between workspaces
-    - Leverage variable libraries to manage environment-specific settings such as connection strings
+  - Leverage variable libraries to manage environment-specific settings such as connection strings
