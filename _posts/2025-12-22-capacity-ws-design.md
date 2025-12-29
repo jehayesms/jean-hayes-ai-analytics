@@ -29,7 +29,7 @@ In this blog, we will:
 
 With this knowledge, you will be better equipped to design a Fabric environment that meets your organization's needs both now and in the future.
 
-## **Fabric Capacity Consumption**
+# **Fabric Capacity Consumption**
 
 Fabric Capacities are the backbone of resource allocation in Microsoft Fabric. They provide dedicated resources for hosting and running workloads, ensuring optimal performance and reliability. All Fabric items on a single capacity share the compute. For example, if a Fabric pipeline calls a SQL script in a Data Warehouse on the same capacity, both the script consume compute from that single capacity. If performance was slow on the SQL script, you may need scale up or scale out the capacity. In contrast, if an Azure Data Factory pipeline calls an Azure SQL DB script, the pipeline would use an Azure Integration Runtime compute for pipeline activities and the Azure SQL DB compute for SQL script execution. For performance issues with Azure SQL DB, you would just scale up the compute for a single resource, the Azure SQL DB.
 
@@ -58,7 +58,7 @@ Additionally, like other Fabric resources, Fabric Capacities can be tagged for c
 
 Check the [Fabric Roadmap](https://roadmap.fabric.microsoft.com/?product=administration%2Cgovernanceandsecurity) frequently for upcoming features that may impact capacity management, such as Fabric capacity overage billing, due for public preview in Q1 2026.
 
-## **Workspace Design Considerations**
+# **Workspace Design Considerations**
 
 ![Fabric Deployment Pipelines Overview]( {{"assets/images/fabric-cap-ws/fabric-cap-ws-03.png"| relative_url}} )
 
@@ -78,3 +78,130 @@ Workspaces in Microsoft Fabric are logical containers for organizing and managin
   ![Fabric Deployment Pipelines Overview]( {{"assets/images/fabric-cap-ws/fabric-cap-ws-10.png"| relative_url}} )
   - Use deployment pipelines to automate the deployment of items between workspaces
   - Leverage variable libraries to manage environment-specific settings such as connection strings
+
+So as we move on to the next section, reviewing your current and future requirements, keep in mind the considerations above around capacity consumption and workspace capabilities.
+
+# **Discover Current and Future Fabric Requirements**
+
+Before designing your Fabric capacities and workspaces, it's essential to understand your organization's current and future needs. We'll cover key questions to ask around:
+
+- Current Business Use Cases and Fabric Environment
+- Future Goals for Fabric
+- Personas using Fabric
+- CI/CD Environment
+- Current and Future Data Architectures
+
+## **Fabric Today**
+
+### What you are doing in Microsoft Fabric today?
+
+- What are current business use cases?
+- What are your deliverables?
+- What are your data sources?
+- What are you using for source control and CI/CD?
+- Do you have any architecture diagrams? Ensure they are up to date.
+- What are your challenges?
+
+### **What Fabric experiences are you using and for what purpose?**
+
+- Power BI reports
+- Semantic models – Direct Lake, Import, Direct Query
+- Lakehouse
+- Data warehouse
+- Mirroring
+- Pipelines
+- Spark
+- Event hubs, RTI, KQL
+- SQL Database
+- Cosmos
+- Data Bricks
+- AI
+- Dataflows
+- Copilot
+  - Best practice for Copilot is to have a [separate capacity for Copilot workloads](https://learn.microsoft.com/en-us/fabric/enterprise/fabric-copilot-capacity) to avoid impacting other workloads
+    - This can be even be an F2 capacity since Copilot uses the capacity where the data resides
+    - The Copilot capacity is only used for billing and allows you to control Copilot usage so it does not impact other workloads or cause unexpected costs
+- Other
+
+### What is the state of your current capacities?
+
+- What Fabric Capacities do you have now?
+- How are workspaces currently aligned?
+- Do you have any reservations?
+- What workloads are using the most capacity?
+- What is your normal capacity utilization?
+- Are there any issues with capacity throttling?
+- Do you have any surge protection or autoscale enabled?
+- How are you monitoring capacity usage and performance?
+- How do you anticipate your capacities/workspaces to grow?
+- Are there times when the capacities not being used?
+- Or are there times when they are in high demand?
+- What reports have the most consumption?
+- Are there any spark jobs that are resource intensive?
+
+## **Fabric Future**
+
+### What are your goals for the next 6-12 months?
+
+- What are your business use cases you wish to implement in the next 6 months?
+  - For each use case, what is the priority and timeline?
+- What features are you considering and for what use case? For example…
+  - Enterprise Data Warehouse for Reporting
+  - Lakehouse For Reporting
+  - Lakehouse for Data Science
+  - RAG over Power BI Data
+  - Integration with Azure AI Foundry
+  - Operational Workloads
+  - Near-RealTime Reporting
+  - Near RealTime Alerting
+  - Other
+
+### What are your goals for the beyond 6-12 months?
+
+- What are your business use cases you wish to implement in the next 6 months?
+  - For each use case, what is the priority and timeline?
+- What features are you considering and for what use case? For example…
+  - Enterprise Data Warehouse for Reporting
+  - Lakehouse For Reporting
+  - Lakehouse for Data Science
+  - RAG over Power BI Data
+  - Integration with Azure AI Foundry
+  - Operational Workloads
+  - Near-RealTime Reporting
+  - Near RealTime Alerting
+  - Other
+
+## What are the personas of those using (or will be using) Fabric?
+
+Note: Best practice is to set up security groups for personas
+
+### Business
+
+- Consumers of Power BI Reports Only
+- Business Report Writers
+- Super Users
+  - Those who create report content, semantic models, query data with SQL, other Fabric experiences
+- Executives
+- External Users
+
+### IT
+
+- Data engineers
+- AI Engineers
+- DBAs
+- App Dev
+- Infra
+- IT Managed Report Developers
+- Data scientists – consuming data, training
+
+## ** What does your CI/CD environment look like? **
+
+- Do you have a CI/CD environment set up today?
+- Are you using Github or Azure DevOps?
+- How does or will your IT Team work together?
+  - Multiple contributors on single artifact 
+  - Multiple contributors on same workspace but different artifacts
+- What does or will your environments look like?
+  - Dev, Test, Prod
+  - Are all workspaces retained in source control?
+  - Will users be using CI/CD for reports?
