@@ -210,5 +210,6 @@ Note: Best practice is to set up security groups for personas
 
 # Workspace and Capacity Architectural Patterns
 
-
 Based on your current and future requirements, you can start to design your Fabric capacities and workspaces. Here are the patterns to consider:
+
+## Single Workspace with Single Capacity
