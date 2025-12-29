@@ -233,3 +233,64 @@ Considerations:
 - Careful monitoring of capacity usage is important
 - Number of CI/CD environments are reduced but can cause issues if you have dependencies between objects
 - Network settings are shared across all items
+
+## Multiple Workspaces with Shared Capacity
+
+![Fabric Multiple Workspaces Shared Capacity]( {{"assets/images/fabric-cap-ws/fabric-cap-ws-singleC.png"| relative_url}} )
+
+You should consider this pattern if:
+
+- All workloads across all workspaces can share the same pool of compute
+- Need to plan for future scale-out
+- You need more granular control in securing items within a development team
+- You want to decentralize ownership and governance
+- All data can reside in the same region (even in a scale out event)
+- Solution can tolerate potential throttling from Noisy Neighbor
+
+Considerations:
+
+- Allows flexibility for either scale up or scale out
+- More complexity and overhead in workspace management
+- Plan workspace design and naming conventions up front
+- DevOps and CI/CD is more complex, but allows more flexibility
+- Careful monitoring of capacity is important as solution scales
+
+## Multiple Workspaces with Dedicated Capacities
+
+![Fabric Multiple Workspaces Dedicated Capacities]( {{"assets/images/fabric-cap-ws/fabric-cap-ws-multiC.png"| relative_url}} )
+
+You should consider this pattern if:
+
+- You have a large-scale enterprise implementation
+- You have large data and/or complex data processing requirements
+- You need full control over scaling and optimizing for different types of compute 
+- You have unpredictable compute patterns that might impact other workloads
+- Data needs to reside in different regions
+- Solution has mission critical needs and cannot tolerate variability in performance
+- You want to implement a data mesh architecture for the organization (De-centralized ownership of data, domain driven ownership)
+
+Considerations:
+
+- Allows flexibility for granular control over compute allocation/scale
+- Allows for workload isolation for different compute profiles
+- Higher degree of governance, but with more flexibility/decentralization
+- Cost and ownership of capacities can be completely federated
+
+## Example Medallion Architecture
+
+![Fabric Medallion Architecture]( {{"assets/images/fabric-cap-ws/fabric-cap-ws-medallion.png"| relative_url}} )
+
+In the example above, we have a medallion architecture with Bronze, Silver and Gold layers. Each layer is in its own workspace to provide better security and governance.
+
+- The Bronze and Silver for Data Ingestion and Orchestration/Transformation workspaces are on a shared capacity since they have similar compute needs and can share resources.
+- The Gold and Reporting workspaces are on a separate dedicated capacity since it has more interactive workloads that need to be isolated from the other layers for performance reasons. Another option is to have multiple workspace just for reports in order to allow create their own reports over governed semantic models.
+- We also have a separate capacity for AI/Copilot. As mentioned earlier, best practice is to have a separate capacity for Copilot workloads to avoid impacting other workloads and control usage.
+- For the Data Science workspace, it may have different compute needs and security requirements that warrant a separate capacity. You could also leverage Autoscale for Spark for Data Science workloads to optimize costs.
+
+This design allows for better scalability, performance, and security while still being manageable from a DevOps perspective.
+
+## Conclusion
+
+As you can see, designing Microsoft Fabric capacities and workspaces requires careful consideration of your organization's current and future needs. By understanding key concepts around capacity consumption and workspace capabilities, asking the right questions about your requirements and personas, and leveraging architectural patterns, you can create a scalable, performant, and secure Fabric environment that meets your organization's needs both now and in the future.
+
+Special thank you for Holly Kelly for all the training and guidance she has provided on Microsoft Fabric! Plus she allowed me to lift some of her images and verbiage from her internal training materials! Also, be sure to read [Microsoft Fabric deployment patterns]( https://learn.microsoft.com/en-us/azure/architecture/analytics/architecture/fabric-deployment-patterns) in the Azure Architecture Center.
