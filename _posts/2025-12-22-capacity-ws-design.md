@@ -23,13 +23,13 @@ Capacity and workspace design:
   
 In this blog, we will:
 
-- review Fabric capacity and workspace concepts and considerations for designing a scalable, performant, and secure environment
-- cover key questions you need to pose around your current and future requirements, personas, and CI/CD practices
-- review typical architectural patterns for Fabric capacities and workspaces
+- review **Fabric capacity and workspace concepts** and considerations for designing a **scalable, performant, and secure environment**
+- cover **key questions**  to pose around your **current and future requirements, personas, and CI/CD practices**
+- review typical **architectural patterns** for Fabric capacities and workspaces
 
 With this knowledge, you will be better equipped to design a Fabric environment that meets your organization's needs both now and in the future.
 
-## Fabric Capacity Consumption
+## **Fabric Capacity Consumption**
 
 Fabric Capacities are the backbone of resource allocation in Microsoft Fabric. They provide dedicated resources for hosting and running workloads, ensuring optimal performance and reliability. All Fabric items on a single capacity share the compute. For example, if a Fabric pipeline calls a SQL script in a Data Warehouse on the same capacity, both the script consume compute from that single capacity. If performance was slow on the SQL script, you may need scale up or scale out the capacity. In contrast, if an Azure Data Factory pipeline calls an Azure SQL DB script, the pipeline would use an Azure Integration Runtime compute for pipeline activities and the Azure SQL DB compute for SQL script execution. For performance issues with Azure SQL DB, you would just scale up the compute for a single resource, the Azure SQL DB.
 
@@ -58,7 +58,7 @@ Additionally, like other Fabric resources, Fabric Capacities can be tagged for c
 
 Check the [Fabric Roadmap](https://roadmap.fabric.microsoft.com/?product=administration%2Cgovernanceandsecurity) frequently for upcoming features that may impact capacity management, such as Fabric capacity overage billing, due for public preview in Q1 2026.
 
-## Workspace Design Considerations
+## **Workspace Design Considerations**
 
 ![Fabric Deployment Pipelines Overview]( {{"assets/images/fabric-cap-ws/fabric-cap-ws-03.png"| relative_url}} )
 
