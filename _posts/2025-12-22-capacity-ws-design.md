@@ -213,3 +213,23 @@ Note: Best practice is to set up security groups for personas
 Based on your current and future requirements, you can start to design your Fabric capacities and workspaces. Here are the patterns to consider:
 
 ## Single Workspace with Single Capacity
+
+You should consider this pattern if:
+
+- Smaller Solutions with relatively small data sizes and processing requirements
+- There is no granular permission requirement in the workspace
+- The solution can tolerate variability in SLAs and/or job completion times
+- All data can reside in the same region
+- Compute patterns are balanced and predictable
+
+Considerations:
+
+- Only option for scaling is to double the SKU
+- Less complexity and overhead in workspace management
+- Turn on Surge Protection to protect interactive operations
+- Look at leveraging Autoscale for Spark
+- Careful monitoring of capacity usage is important 
+- Number of CI/CD environments are reduced but can cause issues if you have dependencies between objects
+- Network settings are shared across all items
+
+
