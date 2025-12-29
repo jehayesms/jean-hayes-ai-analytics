@@ -210,9 +210,11 @@ Note: Best practice is to set up security groups for personas
 
 # Workspace and Capacity Architectural Patterns
 
-Based on your current and future requirements, you can start to design your Fabric capacities and workspaces. Here are the patterns to consider:
+Based on your current and future requirements, you can start to design your Fabric capacities and workspaces. Here are the capacity and workspace patterns to consider:
 
 ## Single Workspace with Single Capacity
+
+![Fabric Single Workspace Single Capacity]( {{"assets/images/fabric-cap-ws/fabric-cap-ws-monolithic.png"| relative_url}} )
 
 You should consider this pattern if:
 
@@ -228,8 +230,6 @@ Considerations:
 - Less complexity and overhead in workspace management
 - Turn on Surge Protection to protect interactive operations
 - Look at leveraging Autoscale for Spark
-- Careful monitoring of capacity usage is important 
+- Careful monitoring of capacity usage is important
 - Number of CI/CD environments are reduced but can cause issues if you have dependencies between objects
 - Network settings are shared across all items
-
-
