@@ -207,3 +207,8 @@ Note: Best practice is to set up security groups for personas
   - Dev, Test, Prod
   - Are all workspaces retained in source control?
   - Will users be using CI/CD for reports?
+
+# Workspace and Capacity Architectural Patterns
+
+
+Based on your current and future requirements, you can start to design your Fabric capacities and workspaces. Here are the patterns to consider:
