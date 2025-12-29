@@ -31,7 +31,8 @@ With this knowledge, you will be better equipped to design a Fabric environment 
 
 # Key concepts around Fabric Capacities and Workspaces
 
-## Fabric Capacity Consumption
+## Fabric Capacities
+![Fabric Capacity Overview]( {{"assets/images/fabric-cap-ws/fabric-cap-ws-02.png"| relative_url}} )
 
 Fabric Capacities are the backbone of resource allocation in Microsoft Fabric. They provide dedicated resources for hosting and running workloads, ensuring optimal performance and reliability. All Fabric items on a single capacity share the compute. For example, if a Fabric pipeline calls a SQL script in a Data Warehouse on the same capacity, both the script consume compute from that single capacity. If performance was slow on the SQL script, you may need scale up or scale out the capacity. In contrast, if an Azure Data Factory pipeline calls an Azure SQL DB script, the pipeline would use an Azure Integration Runtime compute for pipeline activities and the Azure SQL DB compute for SQL script execution. For performance issues with Azure SQL DB, you would just scale up the compute for a single resource, the Azure SQL DB.
 
