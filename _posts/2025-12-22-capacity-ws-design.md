@@ -83,7 +83,9 @@ They provide a way to group related items together, control access and permissio
 - Consider the impact of workspace design on CI/CD and DevOps practices
   - Git repos are at the workspace level
   - Workspaces can be used to separate development, testing, and production environments
+  
   ![Fabric Deployment Pipelines Overview]( {{"assets/images/fabric-cap-ws/fabric-cap-ws-10.png"| relative_url}} )
+
   - Use deployment pipelines to automate the deployment of items between workspaces
   - Leverage variable libraries to manage environment-specific settings such as connection strings
 
@@ -284,9 +286,9 @@ Considerations:
 
 ## Example Medallion Architecture
 
-![Fabric Medallion Architecture]( {{"assets/images/fabric-cap-ws/fabric-cap-ws-medallion.png"| relative_url}} )
+In the example below, we have a medallion architecture with Bronze, Silver and Gold layers. Each layer is in its own workspace to provide better security and governance.
 
-In the example above, we have a medallion architecture with Bronze, Silver and Gold layers. Each layer is in its own workspace to provide better security and governance.
+![Fabric Medallion Architecture]( {{"assets/images/fabric-cap-ws/fabric-cap-ws-medallion.png"| relative_url}} )
 
 - The Bronze and Silver for Data Ingestion and Orchestration/Transformation workspaces are on a shared capacity since they have similar compute needs and can share resources.
 - The Gold and Reporting workspaces are on a separate dedicated capacity since it has more interactive workloads that need to be isolated from the other layers for performance reasons. Another option is to have multiple workspace just for reports in order to allow create their own reports over governed semantic models.
