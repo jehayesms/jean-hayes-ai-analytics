@@ -33,9 +33,11 @@ With this knowledge, you will be better equipped to design a Fabric environment 
 
 ## Fabric Capacities
 
+Fabric Capacities are the backbone of resource allocation in Microsoft Fabric and come in a variety of sizes . They provide dedicated resources for hosting and running workloads, ensuring optimal performance and reliability.
+
 ![Fabric Capacity Overview]( {{"assets/images/fabric-cap-ws/fabric-cap-ws-02.png"| relative_url}} )
 
-Fabric Capacities are the backbone of resource allocation in Microsoft Fabric. They provide dedicated resources for hosting and running workloads, ensuring optimal performance and reliability. All Fabric items on a single capacity share the compute. For example, if a Fabric pipeline calls a SQL script in a Data Warehouse on the same capacity, both the script consume compute from that single capacity. If performance was slow on the SQL script, you may need scale up or scale out the capacity. In contrast, if an Azure Data Factory pipeline calls an Azure SQL DB script, the pipeline would use an Azure Integration Runtime compute for pipeline activities and the Azure SQL DB compute for SQL script execution. For performance issues with Azure SQL DB, you would just scale up the compute for a single resource, the Azure SQL DB.
+All Fabric items on a single capacity share the compute. For example, if a Fabric pipeline calls a SQL script in a Data Warehouse on the same capacity, both the script consume compute from that single capacity. If performance was slow on the SQL script, you may need scale up or scale out the capacity. In contrast, if an Azure Data Factory pipeline calls an Azure SQL DB script, the pipeline would use an Azure Integration Runtime compute for pipeline activities and the Azure SQL DB compute for SQL script execution. For performance issues with Azure SQL DB, you would just scale up the compute for a single resource, the Azure SQL DB.
 
 The key for optimizing Fabric capacity cost and performance is to find the "sweet spot" where workload needs are met without throttling or being underutilized.
 
@@ -64,9 +66,11 @@ Check the [Fabric Roadmap](https://roadmap.fabric.microsoft.com/?product=adminis
 
 ## Workspace Design Considerations
 
+Workspaces in Microsoft Fabric are logical containers for organizing and managing your data, analytics, and AI assets.
+
 ![Fabric Deployment Pipelines Overview]( {{"assets/images/fabric-cap-ws/fabric-cap-ws-03.png"| relative_url}} )
 
-Workspaces in Microsoft Fabric are logical containers for organizing and managing your data, analytics, and AI assets. They provide a way to group related items together, control access and permissions, and facilitate collaboration among team members. When designing workspaces, consider the following:
+They provide a way to group related items together, control access and permissions, and facilitate collaboration among team members. When designing workspaces, consider the following:
 
 - Workspaces can easily be moved between capacities **in the same region**
   - So though you may start with a single capacity, consider organizing your Fabric items in different workspaces that may benefit from running on a separate capacity in the future. One example is putting reports and semantic models in separate workspace(s) than pipelines and Spark jobs, especially if the pipelines and Spark jobs are resource intensive and/or run during business hours
