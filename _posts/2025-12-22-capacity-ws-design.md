@@ -196,6 +196,8 @@ Before designing your Fabric capacities and workspaces, it's essential to unders
 
 #### Business Personas
 
+Some typical Fabric user personas within organizations include:
+
 - Consumers of Power BI Reports Only
 - Business Report Writers
 - Super Users
@@ -226,11 +228,11 @@ Note: Best practice is to set up security groups for personas
   - Dev, Test, Prod
   - Will super users be using source control and CI/CD for reports?
 
-To help with your Fabric discovery process, I created an Excel template to help answer and document these questions. You can download it from [here]( https://github.com/contosojh/sample-files/blob/main/Fabric_Discovery_Toolkit.xlsx).
+**To help with your Fabric discovery process, I created an Excel template to help answer and document these questions. You can [download the template here]( https://github.com/contosojh/sample-files/blob/main/Fabric_Discovery_Toolkit.xlsx).**
 
 # Workspace and Capacity Architectural Patterns
 
-Based on your current and future requirements, you can start to design your Fabric capacities and workspaces. Here are the capacity and workspace patterns to consider:
+Based on your current and future requirements, you can start to design your Fabric capacities and workspaces. Here are some capacity and workspace patterns to consider:
 
 ## **Single Workspace with Single Capacity**
 
