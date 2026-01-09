@@ -9,7 +9,7 @@ image_caption: ""
 ---
 
 
-Starting up in Microsoft Fabric is easy, right? Create a Fabric Capacity, create a workspace and just start building. While this may be true for small scale deployments, as your organization grows and more users start to leverage Fabric, you may outgrow your initial design. Having a thorough understanding of Fabric capacities and workspaces and your current and future goals for data, analytics and AI is essential to design a scalable and performant environment. 
+Starting up in Microsoft Fabric is easy, right? Create a Fabric Capacity, create a workspace and just start building. While this may be true for small scale deployments, as your organization grows and more users start to leverage Fabric, you may outgrow your initial design. Having a thorough understanding of Fabric capacities and workspaces along with your current and future goals for data, analytics and AI are essential for designing a scalable and performant environment. 
 
 Capacity and workspace design:
 
@@ -23,7 +23,7 @@ Capacity and workspace design:
   
 In this blog, we will:
 
-- review **Fabric capacity and workspace concepts** and considerations for designing a **scalable, performant, and secure environment**
+- review **Fabric capacity and workspace concepts and considerations** for designing a **scalable, performant, and secure environment**
 - cover **key questions**  to pose around your **current and future requirements, personas, and CI/CD practices**
 - review typical **architectural patterns** for Fabric capacities and workspaces
 
@@ -31,65 +31,76 @@ With this knowledge, you will be better equipped to design a Fabric environment 
 
 # Key concepts around Fabric Capacities and Workspaces
 
-## Fabric Capacities
+## **Fabric Capacities**
 
-Fabric Capacities are the backbone of resource allocation in Microsoft Fabric and come in a variety of sizes . They provide dedicated resources for hosting and running workloads, ensuring optimal performance and reliability.
+Fabric Capacities are the backbone of resource allocation in Microsoft Fabric and come in a [variety of sizes](https://learn.microsoft.com/en-us/fabric/enterprise/plan-capacity). Capacities are dedicated resources for running Fabric workloads, ensuring optimal performance and reliability.
 
 ![Fabric Capacity Overview]( {{"assets/images/fabric-cap-ws/fabric-cap-ws-02.png"| relative_url}} )
 
-All Fabric items on a single capacity share the compute. For example, if a Fabric pipeline calls a SQL script in a Data Warehouse on the same capacity, both the script consume compute from that single capacity. If performance was slow on the SQL script, you may need scale up or scale out the capacity. In contrast, if an Azure Data Factory pipeline calls an Azure SQL DB script, the pipeline would use an Azure Integration Runtime compute for pipeline activities and the Azure SQL DB compute for SQL script execution. For performance issues with Azure SQL DB, you would just scale up the compute for a single resource, the Azure SQL DB.
+### Fabric Capacity Compute
+All Fabric items on a single capacity share the capacity compute. For example, if a Fabric pipeline calls a SQL script in a Data Warehouse on the same capacity, both the script consume compute from that single capacity. If performance was slow on the SQL script, you may need scale up or scale out the capacity. In contrast, if an Azure Data Factory pipeline calls an Azure SQL DB script, the pipeline would use an Azure Integration Runtime compute for pipeline activities and the Azure SQL DB compute for SQL script execution. For performance issues with Azure SQL DB, you would just scale up the compute for a single resource, the Azure SQL DB.
 
-The key for optimizing Fabric capacity cost and performance is to find the "sweet spot" where workload needs are met without throttling or being underutilized.
+Key to optimizing Fabric capacity cost and performance is finding the "sweet spot" where workload needs are met. A guideline for capacity usage to be less than 80% utilized under normal conditions but to not be underutilized either. Consider the following:
 
 - Size capacities to meet the needs of normal operations and understand how to handle peak loads.
   - [Bursting and smoothing](https://learn.microsoft.com/en-us/fabric/enterprise/throttling) allows capacities to keep running workloads when temporary spikes occur rather than failing or slowing down
     - Bursting allows operations to temporarily exceed capacity limits
-    - Smoothing evens out capacity resource usage over time without throttling
+    - Smoothing evens out capacity resource usage over time
     - Throttling can occur when workloads exceed capacity limits for extended periods and could eventually lead to request rejections
   - [Surge protection](https://learn.microsoft.com/en-us/fabric/enterprise/surge-protection) can be turned on to prevent sudden spikes from overwhelming the capacity and reduces the risk of throttling
-  - [Autoscale for Spark](https://learn.microsoft.com/en-us/fabric/data-engineering/autoscale-billing-for-spark-overview) allows you to run Spark workloads on a pool outside of the Fabric capacity, removing that workload from the Fabric capacity
-- Consider how different workloads on the same capacity will impact each other. Most Fabric items can work across workspaces
-- Fabric Capacity reservations save costs for long-term usage compared to pay-as-you-go pricing. Reservations can also be split or consolidated across multiple capacities. For example, an F128 SKU reservation can be used for a single capacity or split into two F64 SKUs or 1 F64, 1 F32, and 2 F16s or even an F120 and an F8. This provides flexibility in managing capacity resources as organizational needs evolve. But before you purchase a reservation, be sure to analyze your current and projected usage to determine the appropriate size and duration of the reservation.
+ for - [Autoscale for Spark](https://learn.microsoft.com/en-us/fabric/data-engineering/autoscale-billing-for-spark-overview) allows you to run Spark workloads on a pool outside of the Fabric capacity, removing that workload from the Fabric capacity
+- Consider how different workloads on the same capacity may impact each other. Most Fabric items can work across workspaces
+- Fabric Capacity reservations save costs for long-term usage compared to pay-as-you-go pricing. Reservations can also be split or consolidated across multiple capacities. For example, an F128 SKU reservation can be used for a single capacity or split into two F64 SKUs OR 1 F64, 1 F32, and 2 F16s OR even an F120 and an F8. This provides flexibility in managing capacity resources as organizational needs evolve. But before you purchase reservations, be sure to analyze your current and projected usage to determine the appropriate size and duration of the reservation.
 - Optimize all workloads including semantic model design and use built in features like the [Native Execution Engine (NEE) for Data Engineering](https://learn.microsoft.com/en-us/fabric/data-engineering/native-execution-engine-overview?tabs=sparksql)
 - Consider timing on workloads
   - For example, if pipelines run only in off hours, having semantic models on the same capacity may not be an issue. However, if pipelines run during business hours, they may impact report performance
-  - Even if the workloads reside on the same capacity for starters, still consider future needs and design workspaces accordingly so that workloads can be moved to a different capacity if needed (more on that later)
+  - Even if the workloads initially reside on the same capacity, consider future needs by designing workspaces so they can easily be moved to a different capacity if needed (more on that later)
 - Monitor capacity usage and performance regularly to identify bottlenecks and optimize resource allocation
   - Use [Capacity Metrics in the Fabric Admin Portal](https://learn.microsoft.com/en-us/fabric/enterprise/capacity-metrics) to monitor usage and performance
   - Set up alerts for high usage or performance issues to proactively manage capacity resources
 
-The goal is for the capacity to be less than 80% utilized but to not be underutilized either.
-
-Additionally, like other Fabric resources, Fabric Capacities can be tagged for cost allocation and tracking. If different departments need to account for their Fabric costs separately, setting up separate capacities and tagging them appropriately can simplify [cost management](https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/cost-allocation-introduction#tags).
-
 Check the [Fabric Roadmap](https://roadmap.fabric.microsoft.com/?product=administration%2Cgovernanceandsecurity) frequently for upcoming features that may impact capacity management, such as Fabric capacity overage billing, due for public preview in Q1 2026.
 
-## Workspace Design Considerations
+### Capacity Regions
+Capacities can be created in different regions to meet data residency and compliance requirements and to minimize latency. When selecting capacity regions, consider the following:
+
+- Data residency requirements
+  - Ensure that data stored and processed in Fabric complies with local regulations by selecting appropriate capacity regions
+  - For example, if your organization operates in the European Union, you may need to create capacities in EU regions to comply with GDPR regulations
+- Latency considerations
+  - Choose capacity regions that are geographically close to your users and data sources to minimize latency and improve performance
+  - For example, if most of your source data resides in Asia while most of you analysts are in North America, you could locate your lakehouse in Asia for data ingestion and processing, then create a separate capacity and workspace in North America for reporting and analytics
+  
+### Cost Management
+
+ Like other Azure resources, Fabric Capacities can be tagged for cost allocation and tracking. If different departments need to account for their Fabric costs separately, setting up separate capacities and tagging them appropriately can simplify [cost management](https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/cost-allocation-introduction#tags).
+
+## **Workspace Design Considerations**
 
 Workspaces in Microsoft Fabric are logical containers for organizing and managing your data, analytics, and AI assets.
 
 ![Fabric Deployment Pipelines Overview]( {{"assets/images/fabric-cap-ws/fabric-cap-ws-03.png"| relative_url}} )
 
-They provide a way to group related items together, control access and permissions, and facilitate collaboration among team members. When designing workspaces, consider the following:
+Workspaces provide a way to group related items together, control access and permissions, and facilitate collaboration among team members. When designing workspaces, consider the following:
 
 - Workspaces can easily be moved between capacities **in the same region**
-  - So though you may start with a single capacity, consider organizing your Fabric items in different workspaces that may benefit from running on a separate capacity in the future. One example is putting reports and semantic models in separate workspace(s) than pipelines and Spark jobs, especially if the pipelines and Spark jobs are resource intensive and/or run during business hours
-  - If you need to support multi-regions, you will need separate capacities and workspaces in each region. You cannot simply move a workspace to a capacity in a different region - you would need to recreate the workspace and its contents in the new region
+  - Even if you start with a single capacity, consider organizing your Fabric items in different workspaces that may benefit from running on a separate capacity in the future. One example is putting reports and semantic models in separate workspace(s) than pipelines and Spark jobs, especially if the pipelines and Spark jobs are resource intensive and/or run during business hours
+  - Consider potential latency or compliance issues as discussed earlier with users or data in different regions. You cannot simply move a workspace to a capacity in a different region - you would need to recreate the workspace and its contents in the new region - so make sure to plan accordingly
 - Limit access to workspaces
   - Use Power BI Apps to share reports and dashboards without giving report consumers access to the workspace itself
+  - Segregating Fabric items into different workspaces based upon access needs can simplify security and governance; For example, creating a workspace for power users to build their own reports over semantic models from a governed workspace
   - Assign item level access to Fabric items such as a Lakehouse or Semantic model rather than giving users access to the entire workspace
-    - Segregating Fabric items into different workspaces based upon access needs can simplify security and governance; For example, creating a workspace for power users to build their own reports over semantic models from a governed workspace
   - Read more about [OneLake and Fabric security](https://learn.microsoft.com/en-us/fabric/onelake/security/get-started-security) here
 - Consider the impact of workspace design on CI/CD and DevOps practices
   - Git repos are at the workspace level
-  - Workspaces can be used to separate development, testing, and production environments
+  - Workspaces are used separate development, testing, and production environments
   
   ![Fabric Deployment Pipelines Overview]( {{"assets/images/fabric-cap-ws/fabric-cap-ws-10.png"| relative_url}} )
 
   - Use deployment pipelines to automate the deployment of items between workspaces
   - Leverage variable libraries to manage environment-specific settings such as connection strings
 
-So as we move on to the next section, reviewing your current and future requirements, keep in mind the considerations above around capacity consumption and workspace capabilities.
+As we move on to the next section, reviewing your current and future requirements, keep in mind the considerations above around capacity consumption and workspace capabilities.
 
 # Discover Current and Future Fabric Requirements
 
@@ -101,7 +112,7 @@ Before designing your Fabric capacities and workspaces, it's essential to unders
 - CI/CD Environment
 - Current and Future Data Architectures
 
-## Fabric Today
+## **Fabric Today**
 
 ### What's going on in your Microsoft Fabric environment today?
 
@@ -149,7 +160,7 @@ Before designing your Fabric capacities and workspaces, it's essential to unders
 - What reports have the most consumption?
 - Are there any spark jobs that are resource intensive?
 
-## Fabric Future
+## **Fabric Future**
 
 ### What are your goals for the next 6-12 months?
 
@@ -166,7 +177,7 @@ Before designing your Fabric capacities and workspaces, it's essential to unders
   - Near RealTime Alerting
   - Other
 
-### What are your goals beyond 12 months?
+## **What are your goals beyond 12 months?**
 
 - What are your business use cases you wish to implement a year from now?
   - For each use case, what is the priority and timeline?
@@ -181,11 +192,9 @@ Before designing your Fabric capacities and workspaces, it's essential to unders
   - Near RealTime Alerting
   - Other
 
-## What are the personas of those using (or will be using) Fabric?
+### Fabric Users Personas
 
-Note: Best practice is to set up security groups for personas
-
-### Business
+#### Business Personas
 
 - Consumers of Power BI Reports Only
 - Business Report Writers
@@ -194,7 +203,7 @@ Note: Best practice is to set up security groups for personas
 - Executives
 - External Users
 
-### IT
+#### IT
 
 - Data engineers
 - AI Engineers
@@ -204,23 +213,26 @@ Note: Best practice is to set up security groups for personas
 - IT Managed Report Developers
 - Data scientists – consuming data, training
 
-## What does your CI/CD environment look like?
+Note: Best practice is to set up security groups for personas
+
+## **What does your CI/CD environment look like?**
 
 - Do you have a CI/CD environment set up today?
 - Are you using Github or Azure DevOps?
 - How does or will your IT Team work together?
-  - Multiple contributors on single artifact 
+  - Multiple contributors on single artifact
   - Multiple contributors on same workspace but different artifacts
 - What does or will your environments look like?
   - Dev, Test, Prod
-  - Are all workspaces retained in source control?
-  - Will users be using CI/CD for reports?
+  - Will super users be using source control and CI/CD for reports?
+
+To help with your Fabric discovery process, I created an Excel template to help answer and document these questions. You can download it from [here]( https://github.com/contosojh/sample-files/blob/main/Fabric_Discovery_Toolkit.xlsx).
 
 # Workspace and Capacity Architectural Patterns
 
 Based on your current and future requirements, you can start to design your Fabric capacities and workspaces. Here are the capacity and workspace patterns to consider:
 
-## Single Workspace with Single Capacity
+## **Single Workspace with Single Capacity**
 
 ![Fabric Single Workspace Single Capacity]( {{"assets/images/fabric-cap-ws/fabric-cap-ws-monolithic.png"| relative_url}} )
 
@@ -242,7 +254,7 @@ Considerations:
 - Number of CI/CD environments are reduced but can cause issues if you have dependencies between objects
 - Network settings are shared across all items
 
-## Multiple Workspaces with Shared Capacity
+## **Multiple Workspaces with Shared Capacity**
 
 ![Fabric Multiple Workspaces Shared Capacity]( {{"assets/images/fabric-cap-ws/fabric-cap-ws-singleC.png"| relative_url}} )
 
@@ -263,7 +275,7 @@ Considerations:
 - DevOps and CI/CD is more complex, but allows more flexibility
 - Careful monitoring of capacity is important as solution scales
 
-## Multiple Workspaces with Dedicated Capacities
+## **Multiple Workspaces with Dedicated Capacities**
 
 ![Fabric Multiple Workspaces Dedicated Capacities]( {{"assets/images/fabric-cap-ws/fabric-cap-ws-multiC.png"| relative_url}} )
 
@@ -284,7 +296,7 @@ Considerations:
 - Higher degree of governance, but with more flexibility/decentralization
 - Cost and ownership of capacities can be completely federated
 
-## Example Medallion Architecture
+## **Example Medallion Architecture**
 
 In the example below, we have a medallion architecture with Bronze, Silver and Gold layers. Each layer is in its own workspace to provide better security and governance.
 
@@ -297,8 +309,8 @@ In the example below, we have a medallion architecture with Bronze, Silver and G
 
 This design allows for better scalability, performance, and security while still being manageable from a DevOps perspective.
 
-## Conclusion
+## **Conclusion**
 
 As you can see, designing Microsoft Fabric capacities and workspaces requires careful consideration of your organization's current and future needs. By understanding key concepts around capacity consumption and workspace capabilities, asking the right questions about your requirements and personas, and leveraging architectural patterns, you can create a scalable, performant, and secure Fabric environment that meets your organization's needs both now and in the future.
 
-Special thank you to Holly Kelly for all the training and guidance she has provided on Microsoft Fabric! Plus she allowed me to lift some of her images and verbiage from her internal training materials! Also, be sure to read [Microsoft Fabric deployment patterns]( https://learn.microsoft.com/en-us/azure/architecture/analytics/architecture/fabric-deployment-patterns) in the Azure Architecture Center.
+Special thank you to Holly Kelly for all the training and guidance she has provided on Microsoft Fabric Capacities and Workspaces! Plus she allowed me to lift some of her images and verbiage from her internal training materials! Also, be sure to read [Microsoft Fabric deployment patterns]( https://learn.microsoft.com/en-us/azure/architecture/analytics/architecture/fabric-deployment-patterns) in the Azure Architecture Center.
