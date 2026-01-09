@@ -112,6 +112,8 @@ Before designing your Fabric capacities and workspaces, it's essential to unders
 - CI/CD Environment
 - Current and Future Data Architectures
 
+To help with your Fabric discovery process, I created an Excel template to help answer and document these questions. You can [download the template here]( https://github.com/contosojh/sample-files/blob/main/Fabric_Discovery_Toolkit.xlsx). Below is an overview of the questions to consider:
+
 ## **Fabric Today**
 
 ### What's going on in your Microsoft Fabric environment today?
@@ -227,8 +229,6 @@ Note: Best practice is to set up security groups for personas
 - What does or will your environments look like?
   - Dev, Test, Prod
   - Will super users be using source control and CI/CD for reports?
-
-**To help with your Fabric discovery process, I created an Excel template to help answer and document these questions. You can [download the template here]( https://github.com/contosojh/sample-files/blob/main/Fabric_Discovery_Toolkit.xlsx).**
 
 # Workspace and Capacity Architectural Patterns
 
